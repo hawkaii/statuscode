@@ -1,0 +1,170 @@
+{
+  "action_verb_details": {
+    "strong_verb_count": 11,
+    "weak_phrase_count": 1
+  },
+  "breakdown": {
+    "action_verb_score": 23,
+    "format_score": 10,
+    "keyword_score": 38,
+    "length_score": 10
+  },
+  "feedback": [
+    "\ud83d\udcca Sayan\u2019s resume demonstrates strong academic credentials and a solid technical skill set, but it lacks depth in work experience, quantifiable achievements, and a polished professional format. The current ATS score of 81/100 indicates good keyword coverage but leaves room for improvement in keyword density, formatting consistency, and content relevance for target roles.",
+    "\ud83c\udfaf Revise the Experience section to include at least 3 quantified achievements from the Jadavpur University internship.",
+    "\ud83c\udfaf Create a Projects section with 2\u20133 detailed, outcome\u2011driven entries that align with target roles.",
+    "\ud83c\udfaf Standardize formatting and run the resume through an ATS\u2011simulation tool to ensure all keywords and sections are correctly parsed.",
+    "\ud83d\udd27 Insert industry\u2011specific keywords such as \"machine learning\", \"data structures\", \"algorithms\", \"software development\", and \"research methodology\" throughout the resume.",
+    "\ud83d\udd27 Use standard section headings (e.g., \"Education\", \"Technical Skills\", \"Experience\", \"Projects\") that ATS systems reliably parse.",
+    "\ud83d\udd27 Avoid graphics, tables, or unusual fonts that can confuse ATS parsers; stick to plain text with simple bullet points.",
+    "\ud83d\udd27 Include a keyword\u2011rich skills matrix that lists each language with proficiency level (e.g., \"Python \u2013 Advanced, 5+ years experience\").",
+    "\ud83d\udd27 Add a short, keyword\u2011dense summary at the top that mirrors the job description of target roles.",
+    "\ud83d\udd27 Save the file as a .docx or .pdf (with a plain\u2011text fallback) and name it using a clear format (e.g., \"Sayan_Surya_Shaw_Resume.docx\")."
+  ],
+  "feedback_by_category": {
+    "ats_optimization": [
+      "Insert industry\u2011specific keywords such as \"machine learning\", \"data structures\", \"algorithms\", \"software development\", and \"research methodology\" throughout the resume.",
+      "Use standard section headings (e.g., \"Education\", \"Technical Skills\", \"Experience\", \"Projects\") that ATS systems reliably parse.",
+      "Avoid graphics, tables, or unusual fonts that can confuse ATS parsers; stick to plain text with simple bullet points.",
+      "Include a keyword\u2011rich skills matrix that lists each language with proficiency level (e.g., \"Python \u2013 Advanced, 5+ years experience\").",
+      "Add a short, keyword\u2011dense summary at the top that mirrors the job description of target roles.",
+      "Save the file as a .docx or .pdf (with a plain\u2011text fallback) and name it using a clear format (e.g., \"Sayan_Surya_Shaw_Resume.docx\")."
+    ],
+    "career_advice": [
+      "Target roles that value research experience, such as research scientist, data scientist, or algorithm engineer, and tailor each application accordingly.",
+      "Leverage the IIT Bombay alumni network for referrals and informational interviews.",
+      "Pursue additional certifications (e.g., AWS Certified Machine Learning, Google Cloud Professional Data Engineer) to broaden marketability.",
+      "Build a portfolio on GitHub or a personal website showcasing code samples, notebooks, and project documentation.",
+      "Seek mentorship from senior researchers or industry professionals to refine research focus and career trajectory."
+    ],
+    "llm_improvements": [
+      "Expand the work experience section with detailed responsibilities, projects, and measurable outcomes (e.g., performance metrics, code coverage, or research impact).",
+      "Add a concise professional summary or objective that highlights career goals, key strengths, and the type of roles sought.",
+      "Include a dedicated 'Projects' or 'Research Highlights' section to showcase technical depth and problem\u2011solving skills.",
+      "Standardize formatting: use consistent bullet styles, font sizes, and spacing; remove any stray whitespace or hidden characters.",
+      "Incorporate action verbs and quantifiable results (e.g., \"optimized algorithm to reduce runtime by 30%\") to increase impact.",
+      "Add a section for certifications, publications, or conference presentations if applicable.",
+      "Ensure all contact information is complete and professional (LinkedIn URL, email, phone)."
+    ],
+    "llm_strengths": [
+      "Top-tier educational background (IIT Bombay M.Tech, University of Calcutta B.Tech)",
+      "Diverse programming skill set (C, C++, Bash, Python, Java)",
+      "Research experience at a reputable institution (Jadavpur University)",
+      "High ATS score indicating basic keyword alignment"
+    ]
+  },
+  "format_details": {
+    "has_contact": false,
+    "missing_sections": [],
+    "sections_found": [
+      "Experience",
+      "Education",
+      "Skills"
+    ]
+  },
+  "improvement_priority": [
+    "Revise the Experience section to include at least 3 quantified achievements from the Jadavpur University internship.",
+    "Create a Projects section with 2\u20133 detailed, outcome\u2011driven entries that align with target roles.",
+    "Standardize formatting and run the resume through an ATS\u2011simulation tool to ensure all keywords and sections are correctly parsed."
+  ],
+  "keyword_details": {
+    "industry_skills": [
+      "Vensim",
+      "Pytorch",
+      "Pandas",
+      "CSS",
+      "PostgreSQL",
+      "HTML",
+      "Machine Learning",
+      "LATEX",
+      "Scikit-learn",
+      "Numpy",
+      "Spring-Boot",
+      "Git",
+      "Testing"
+    ],
+    "soft_skills": [
+      "Communication",
+      "Leadership",
+      "Team Coordination",
+      "Mentoring"
+    ],
+    "technical_skills": [
+      "Bash",
+      "C",
+      "Spring-Boot",
+      "SwiftUI",
+      "Python",
+      "CSS",
+      "Scikit-learn",
+      "Numpy",
+      "Git",
+      "Java",
+      "Pytorch",
+      "Swift",
+      "PostgreSQL",
+      "Pandas",
+      "LATEX",
+      "Vensim",
+      "C++",
+      "HTML",
+      "SQL"
+    ]
+  },
+  "llm_available": true,
+  "llm_insights": {
+    "ats_optimization": [
+      "Insert industry\u2011specific keywords such as \"machine learning\", \"data structures\", \"algorithms\", \"software development\", and \"research methodology\" throughout the resume.",
+      "Use standard section headings (e.g., \"Education\", \"Technical Skills\", \"Experience\", \"Projects\") that ATS systems reliably parse.",
+      "Avoid graphics, tables, or unusual fonts that can confuse ATS parsers; stick to plain text with simple bullet points.",
+      "Include a keyword\u2011rich skills matrix that lists each language with proficiency level (e.g., \"Python \u2013 Advanced, 5+ years experience\").",
+      "Add a short, keyword\u2011dense summary at the top that mirrors the job description of target roles.",
+      "Save the file as a .docx or .pdf (with a plain\u2011text fallback) and name it using a clear format (e.g., \"Sayan_Surya_Shaw_Resume.docx\")."
+    ],
+    "career_advice": [
+      "Target roles that value research experience, such as research scientist, data scientist, or algorithm engineer, and tailor each application accordingly.",
+      "Leverage the IIT Bombay alumni network for referrals and informational interviews.",
+      "Pursue additional certifications (e.g., AWS Certified Machine Learning, Google Cloud Professional Data Engineer) to broaden marketability.",
+      "Build a portfolio on GitHub or a personal website showcasing code samples, notebooks, and project documentation.",
+      "Seek mentorship from senior researchers or industry professionals to refine research focus and career trajectory."
+    ],
+    "improvements": [
+      "Expand the work experience section with detailed responsibilities, projects, and measurable outcomes (e.g., performance metrics, code coverage, or research impact).",
+      "Add a concise professional summary or objective that highlights career goals, key strengths, and the type of roles sought.",
+      "Include a dedicated 'Projects' or 'Research Highlights' section to showcase technical depth and problem\u2011solving skills.",
+      "Standardize formatting: use consistent bullet styles, font sizes, and spacing; remove any stray whitespace or hidden characters.",
+      "Incorporate action verbs and quantifiable results (e.g., \"optimized algorithm to reduce runtime by 30%\") to increase impact.",
+      "Add a section for certifications, publications, or conference presentations if applicable.",
+      "Ensure all contact information is complete and professional (LinkedIn URL, email, phone)."
+    ],
+    "overall_assessment": "Sayan\u2019s resume demonstrates strong academic credentials and a solid technical skill set, but it lacks depth in work experience, quantifiable achievements, and a polished professional format. The current ATS score of 81/100 indicates good keyword coverage but leaves room for improvement in keyword density, formatting consistency, and content relevance for target roles.",
+    "priority_actions": [
+      "Revise the Experience section to include at least 3 quantified achievements from the Jadavpur University internship.",
+      "Create a Projects section with 2\u20133 detailed, outcome\u2011driven entries that align with target roles.",
+      "Standardize formatting and run the resume through an ATS\u2011simulation tool to ensure all keywords and sections are correctly parsed."
+    ],
+    "strengths": [
+      "Top-tier educational background (IIT Bombay M.Tech, University of Calcutta B.Tech)",
+      "Diverse programming skill set (C, C++, Bash, Python, Java)",
+      "Research experience at a reputable institution (Jadavpur University)",
+      "High ATS score indicating basic keyword alignment"
+    ]
+  },
+  "parsed_resume": {
+    "certifications_count": 0,
+    "contact_info": {
+      "email": null,
+      "github": null,
+      "linkedin": null,
+      "location": null,
+      "name": "Sayan Surya Shaw",
+      "phone": null
+    },
+    "education_count": 2,
+    "has_summary": false,
+    "technical_skills_count": 18,
+    "work_experience_count": 1
+  },
+  "score": 81,
+  "word_count": 1098
+}

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sop-agent
+  labels:
+    app: sop-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sop-agent
+  template:
+    metadata:
+      labels:
+        app: sop-agent
+    spec:
+      containers:
+      - name: sop-agent
+        image: unicompass/sop-agent:latest
+        ports:
+        - containerPort: 5003
+        env:
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sop-agent-secrets
+              key: gemini-api-key
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sop-agent-secrets
+              key: secret-key
+        - name: DATABASE_URL
+          value: postgresql://sopuser:soppass@postgres:5432/sop_agent
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sop-agent-service
+spec:
+  selector:
+    app: sop-agent
+  ports:
+  - protocol: TCP
+    port: 5003
+    targetPort: 5003
+  type: LoadBalancer
