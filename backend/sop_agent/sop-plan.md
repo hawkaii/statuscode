@@ -41,5 +41,7 @@ Architecture, workflow, and enhancement roadmap for UniCompass SOP Agent: modula
 ## Next Steps
 - Integrate pgvector semantic search
 - Implement LangGraph workflow orchestration
-- Update documentation and dashboard
+- Update documentation and dashboard (see updated README.md, AGENTS.md, GEMINI.md)
 - Extend endpoints for advanced feedback/history
+- Ensure embedding dimension matches model output (default: 384)
+- Add troubleshooting and FAQ to docs

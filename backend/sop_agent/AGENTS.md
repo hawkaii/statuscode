@@ -11,6 +11,21 @@
   - Test all: `pytest tests`
   - Test single file: `pytest tests/test_api.py`
 
+## Agent Workflows
+- **Review Agent:**
+  - Accepts SOP draft, retrieves similar examples via semantic search, passes context to Gemini AI, returns actionable feedback and cues.
+- **Suggest Agent:**
+  - Accepts revised SOP, compares with previous drafts, retrieves relevant feedback, and suggests improvements.
+- **History Agent:**
+  - Returns user’s SOP review history, including drafts, feedback, and context used.
+
+## Example Usage
+- See `main.py` for API endpoints and agent orchestration.
+- See `gemini_client.py` for Gemini integration and prompt construction.
+
+## Contribution Guidelines
+- Follow code style rules below for all agent logic and API endpoints.
+
 ## Code Style Guidelines
 - **Frontend:**
   - Use ESLint (Next.js core-web-vitals, TypeScript)

@@ -2,7 +2,12 @@ from datetime import datetime
 from sqlalchemy import Column, String, DateTime, Integer, Text, create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from pgvector.sqlalchemy import Vector
+# Try to import pgvector, fallback to Text for SQLite
+try:
+    from pgvector.sqlalchemy import Vector
+    VECTOR_SUPPORT = True
+except ImportError:
+    VECTOR_SUPPORT = False
 import os
 
 Base = declarative_base()
@@ -21,7 +26,8 @@ class SOPEmbedding(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     content = Column(Text, nullable=False)
     content_type = Column(String, nullable=False)  # 'draft', 'feedback', 'example'
-    embedding = Column(Vector(384), nullable=False)  # Store as pgvector (all-MiniLM-L6-v2 dimensions)
+    # Use pgvector if available, otherwise store as JSON text
+    embedding = Column(Vector(384) if VECTOR_SUPPORT else Text, nullable=False)  # Store as pgvector or text
     timestamp = Column(DateTime, default=datetime.utcnow)
 
 # Database configuration

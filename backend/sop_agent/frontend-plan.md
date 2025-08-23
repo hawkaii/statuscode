@@ -30,3 +30,5 @@ See `frontend/` directory for Next.js app layout and components.
 - Initialize Next.js project in `frontend/`
 - Implement authentication and UI components
 - Connect to backend API
+- See updated backend README.md for API details and troubleshooting
+- Ensure JWT and CORS configuration matches backend

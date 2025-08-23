@@ -2,17 +2,46 @@
 
 A Retrieval-Augmented Generation (RAG) agent for reviewing Statement of Purpose (SOP) drafts, powered by Gemini AI and semantic search with pgvector.
 
-## Features
-- **RAG-Enhanced Feedback:** Finds similar SOPs and feedback for context-aware review
-- **Vector Similarity Search:** Uses pgvector for fast, accurate semantic matching
-- **Contextual Guidance:** Leverages examples and history for tailored feedback
-- **Modular Architecture:** Clean separation of API, storage, embeddings, and AI
-- **JWT Authentication:** Secure endpoints for user data
-- **Dockerized Deployment:** Easy setup for development and production
+---
 
-## Quick Start
+## Table of Contents
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Setup & Installation](#setup--installation)
+  - [Docker (Recommended)](#docker-recommended)
+  - [Local Development](#local-development)
+- [Configuration](#configuration)
+- [API Endpoints](#api-endpoints)
+- [Embedding & RAG Workflow](#embedding--rag-workflow)
+- [Testing & Development](#testing--development)
+- [Troubleshooting & FAQ](#troubleshooting--faq)
+- [Contributing](#contributing)
+- [References](#references)
+- [License](#license)
 
-### Option 1: Docker (Recommended)
+---
+
+## Overview
+
+UniCompass SOP Agent is a backend service for reviewing and improving Statement of Purpose drafts. It leverages semantic search (pgvector) and Google Gemini AI to provide context-aware, actionable feedback. The agent uses Retrieval-Augmented Generation (RAG) to find similar SOPs and feedback, enhancing the quality and relevance of its suggestions.
+
+---
+
+## Architecture
+- **main.py:** Flask API endpoints with RAG integration
+- **gemini_client.py:** Gemini AI integration
+- **storage.py:** Data persistence and semantic search
+- **models.py:** SQLAlchemy models for SOP history and embeddings
+- **auth.py:** JWT authentication
+- **config.py:** Configuration management
+- **init_embeddings.py:** Initializes and populates the vector database
+- **frontend/**: Next.js frontend (see `frontend-plan.md`)
+
+---
+
+## Setup & Installation
+
+### Docker (Recommended)
 1. **Prerequisites:**
    - Docker & Docker Compose
    - Gemini API key
@@ -36,7 +65,7 @@ A Retrieval-Augmented Generation (RAG) agent for reviewing Statement of Purpose 
    - API: http://localhost:5003
    - PostgreSQL: localhost:5432
 
-### Option 2: Local Development
+### Local Development
 1. **Install pgvector:**
    ```bash
    # Install pgvector extension for PostgreSQL
@@ -66,6 +95,17 @@ A Retrieval-Augmented Generation (RAG) agent for reviewing Statement of Purpose 
    python init_embeddings.py
    python main.py
    ```
+
+---
+
+## Configuration
+- `GEMINI_API_KEY`: Your Gemini API key
+- `SECRET_KEY`: JWT secret key
+- `DATABASE_URL`: PostgreSQL connection string (e.g., `postgresql://user:pass@localhost/sop_agent`)
+
+See `.env.example` for all required variables.
+
+---
 
 ## API Endpoints
 
@@ -99,54 +139,62 @@ Get user's SOP review history.
 ### PATCH /suggest
 Get feedback on revised SOP drafts.
 
-## Architecture
-- **main.py:** Flask API endpoints with RAG integration
-- **gemini_client.py:** Gemini AI integration
-- **storage.py:** Data persistence and semantic search
-- **models.py:** SQLAlchemy models for SOP history and embeddings
-- **auth.py:** JWT authentication
-- **config.py:** Configuration management
+---
 
-### RAG Workflow
-1. **Embedding Generation:** Convert SOP drafts to vector embeddings
-2. **Semantic Search:** Find similar examples and feedback using pgvector
-3. **Context Building:** Combine similar content for enhanced prompts
-4. **AI Generation:** Use Gemini with context for more relevant feedback
-5. **Storage:** Save embeddings for future searches
+## Embedding & RAG Workflow
 
-## Configuration
-- `GEMINI_API_KEY`: Your Gemini API key
-- `SECRET_KEY`: JWT secret key
-- `DATABASE_URL`: PostgreSQL connection string (e.g., `postgresql://user:pass@localhost/sop_agent`)
+1. **Sentence Encoding:**
+   - SOP drafts and queries are converted to dense vector embeddings using transformer models (e.g., `all-MiniLM-L6-v2`).
+   - Embeddings are stored in PostgreSQL with pgvector for fast semantic search.
 
-## Docker Commands
-```bash
-# Start services
-docker-compose up -d
-# View logs
-docker-compose logs -f
-# Stop services
-docker-compose down
-# Rebuild and restart
-docker-compose up -d --build
-# Access the app container
-docker-compose exec app bash
-# Initialize embeddings
-docker-compose exec app python init_embeddings.py
-# View database
-docker-compose exec postgres psql -U sop_user -d sop_agent
-```
+2. **Retrieval Augmented Generation (RAG):**
+   - When reviewing, the agent encodes the query and finds similar SOPs via vector search.
+   - Retrieved documents are passed to Gemini AI for context-aware feedback.
+   - The response is returned to the frontend/user.
 
-## Development
-- **Testing:** Use `pytest` (see `tests/`)
-- **Frontend:** Next.js app in `frontend/` (see `frontend-plan.md`)
-- **Enhancement Plan:** See `sop-plan.md` for architecture and roadmap
-- **Gemini API:** See `GEMINI.md` for integration details
+---
 
-## Troubleshooting
-- **pgvector not found:** Ensure pgvector is installed and enabled
-- **Embedding errors:** Check embedding function returns correct dimensions
-- **Database connection:** Verify `DATABASE_URL` and credentials
+## Testing & Development
+- **Backend:**
+  - Install dependencies: `pip install -r requirements.txt`
+  - Run all tests: `pytest tests`
+  - Run a single test: `pytest tests/test_api.py`
+- **Frontend:**
+  - See `frontend-plan.md` for Next.js setup and commands
+- **Enhancement Plan:**
+  - See `sop-plan.md` for architecture and roadmap
+- **Gemini API:**
+  - See `GEMINI.md` for integration details
+
+---
+
+## Troubleshooting & FAQ
+- **pgvector not found:** Ensure pgvector is installed and enabled in PostgreSQL.
+- **Embedding errors:** Check that the embedding function returns the correct dimensions (default: 384).
+- **Database connection:** Verify `DATABASE_URL` and credentials.
+- **Gemini API issues:** Ensure your API key is valid and the model name is correct (`gemini-1.5-flash`).
+- **Docker issues:** Use `docker-compose logs -f` to view logs and debug.
+- **CORS errors:** Ensure backend is running and accessible from the frontend.
+
+---
+
+## Contributing
+- Follow PEP8 for Python code and ESLint/Prettier for frontend.
+- Group imports: stdlib, third-party, local.
+- Use docstrings and descriptive names.
+- Submit PRs with clear descriptions and reference related issues.
+- See `AGENTS.md` for build, lint, and test commands.
+
+---
+
+## References
+- [Gemini API Docs](https://ai.google.dev/gemini-api/docs)
+- [pgvector](https://github.com/pgvector/pgvector)
+- [sentence-transformers](https://www.sbert.net/)
+- [Flask](https://flask.palletsprojects.com/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+
+---
 
 ## License
 MIT License - see LICENSE file for details.
