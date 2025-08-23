@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: unicompass-backend
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: unicompass-backend
+data:
+  POSTGRES_DB: unicompass
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: unicompass2024
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-secrets
+  namespace: unicompass-backend
+type: Opaque
+stringData:
+  GEMINI_API_KEY: "fake_gemini_key_for_testing"
+  OPENAI_API_KEY: "fake_openai_key_for_testing"
+  DOCUMENTINTELLIGENCE_ENDPOINT: "https://fake.endpoint.com"
+  DOCUMENTINTELLIGENCE_API_KEY: "fake_azure_key_for_testing"
+  JWT_SECRET: "test_jwt_secret_key_12345"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: unicompass-backend
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: postgres-storage
+        emptyDir: {}
+      - name: init-script
+        configMap:
+          name: postgres-init
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: unicompass-backend
+spec:
+  selector:
+    app: postgres
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: unicompass-backend
+data:
+  init-db.sql: |
+    -- Create tables for SOP agent
+    CREATE TABLE IF NOT EXISTS history (
+        id SERIAL PRIMARY KEY,
+        user_id VARCHAR(255) NOT NULL,
+        draft TEXT NOT NULL,
+        feedback TEXT NOT NULL,
+        cues TEXT NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    CREATE TABLE IF NOT EXISTS embeddings (
+        id SERIAL PRIMARY KEY,
+        text TEXT NOT NULL,
+        embedding_type VARCHAR(50) NOT NULL,
+        embedding REAL[] NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    -- Insert test data
+    INSERT INTO history (user_id, draft, feedback, cues) VALUES 
+    ('demo_user', 'Sample SOP draft', 'Improve structure', 'Add specific examples'),
+    ('demo_user', 'Another draft', 'Good content', 'Polish language');

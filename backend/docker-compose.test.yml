@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: unicompass-db-test
+    environment:
+      - POSTGRES_DB=unicompass
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=testpass123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Prediction Agent
+  prediction-agent:
+    build: 
+      context: ./prediction_agent
+      dockerfile: Dockerfile
+    container_name: unicompass-prediction-test
+    environment:
+      - PORT=5002
+      - HOST=0.0.0.0
+      - DEBUG=false
+    ports:
+      - "5002:5002"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+  # Resume Agent
+  resume-agent:
+    build: 
+      context: ./resume_agent
+      dockerfile: Dockerfile
+    container_name: unicompass-resume-test
+    environment:
+      - OPENAI_API_KEY=fake_key_for_testing
+      - DOCUMENTINTELLIGENCE_ENDPOINT=https://fake.endpoint.com
+      - DOCUMENTINTELLIGENCE_API_KEY=fake_key_for_testing
+    ports:
+      - "5001:5001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+  # SOP Agent
+  sop-agent:
+    build: 
+      context: ./sop_agent
+      dockerfile: Dockerfile
+    container_name: unicompass-sop-test
+    environment:
+      - DATABASE_URL=postgresql://postgres:testpass123@postgres:5432/unicompass
+      - GEMINI_API_KEY=fake_key_for_testing
+      - JWT_SECRET=test_jwt_secret_12345
+      - FLASK_ENV=production
+    ports:
+      - "5003:5003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/api/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+  # Orchestrator
+  orchestrator:
+    build: 
+      context: ./orchestrator
+      dockerfile: Dockerfile
+    container_name: unicompass-orchestrator-test
+    environment:
+      - PREDICTION_AGENT_URL=http://prediction-agent:5002/predict_universities
+      - RESUME_AGENT_URL=http://resume-agent:5001/analyze_resume
+      - SOP_AGENT_URL=http://sop-agent:5003
+    ports:
+      - "5000:5000"
+    depends_on:
+      - prediction-agent
+      - resume-agent
+      - sop-agent
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_test_data:
+
+networks:
+  default:
+    name: unicompass-test-network
