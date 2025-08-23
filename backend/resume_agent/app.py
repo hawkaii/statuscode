@@ -1,60 +1,83 @@
-
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+from scoring.ats_scorer import analyze_resume
+from config import config
+import os
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/analyze_resume', methods=['POST'])
-def analyze_resume():
-    """
-    Analyzes resume text based on simple heuristics.
-    """
+def analyze_resume_endpoint():
     try:
+        # Get the JSON data from request
         data = request.get_json()
-        resume_text = data.get('resume_text')
-
-        if not resume_text:
-            return jsonify({"error": "Resume text is required"}), 400
-
-        # --- Hackathon Logic ---
-        # 1. Score based on length
-        score = min(100, 60 + (len(resume_text) // 50))
-
-        feedback = []
-
-        # 2. Score and feedback based on keywords
-        keywords = ['python', 'java', 'c++', 'javascript', 'react', 'angular', 'vue', 'project management', 'agile', 'scrum', 'leadership', 'teamwork']
-        found_keywords = [kw for kw in keywords if kw in resume_text.lower()]
-        if found_keywords:
-            score = min(100, score + len(found_keywords) * 2)
-            feedback.append(f"Good inclusion of keywords: {', '.join(found_keywords[:3])}...")
-        else:
-            feedback.append("Consider adding relevant skills and technology keywords.")
-
-        # 3. Score and feedback based on action verbs
-        action_verbs = ['developed', 'led', 'managed', 'created', 'implemented', 'designed', 'architected', 'optimized']
-        found_verbs = [verb for verb in action_verbs if verb in resume_text.lower()]
-        if found_verbs:
-            score = min(100, score + len(found_verbs) * 3)
-            feedback.append("Excellent use of action verbs to describe your accomplishments.")
-        else:
-            feedback.append("Try using stronger action verbs (e.g., 'Developed', 'Managed') to start your bullet points.")
-
-        feedback.append("Ensure your contact information is clear and up-to-date.")
-
-        # Final response based on the API contract
-        response = {
-            "ats_score": score,
-            "feedback": feedback
-        }
-
-        print(f"Analyzed resume (length: {len(resume_text)}). Returning score: {score}")
-
-        return jsonify(response)
-
+        
+        # Basic validation
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        if 'resume_text' not in data:
+            return jsonify({'error': 'resume_text field is required'}), 400
+        
+        resume_text = data['resume_text']
+        
+        # Analyze the resume using enhanced ATS scoring system
+        result = analyze_resume(resume_text)
+        
+        return jsonify(result), 200
+        
     except Exception as e:
-        print(f"Error in ResumeAgent: {e}")
-        return jsonify({"error": "An internal server error occurred in the Resume Agent."}), 500
+        return jsonify({'error': f'Internal server error: {str(e)}'}), 500
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    # Check if LLM service is available
+    try:
+        from llm.llm_service import llm_service
+        llm_status = llm_service.is_available()
+    except:
+        llm_status = False
+    
+    return jsonify({
+        'status': 'healthy', 
+        'service': 'resume_analyzer',
+        'llm_available': llm_status,
+        'model': config.OPENAI_MODEL if llm_status else 'Not configured'
+    }), 200
+
+@app.route('/llm_status', methods=['GET'])
+def llm_status():
+    """Check LLM service status"""
+    try:
+        from llm.llm_service import llm_service
+        is_available = llm_service.is_available()
+        
+        return jsonify({
+            'llm_available': is_available,
+            'model': config.OPENAI_MODEL if is_available else None,
+            'status': 'ready' if is_available else 'not_configured'
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'llm_available': False,
+            'error': str(e),
+            'status': 'error'
+        }), 500
 
 if __name__ == '__main__':
-    # The plan specifies port 5001 for the ResumeAgent
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    print("🚀 Starting Enhanced Resume Analyzer on http://localhost:5001")
+    print("🧠 LLM-Powered Intelligence System Ready!")
+    
+    # Check LLM availability on startup
+    try:
+        from llm.llm_service import llm_service
+        if llm_service.is_available():
+            print(f"✅ LLM Service Active - Model: {config.OPENAI_MODEL}")
+        else:
+            print("⚠️  LLM Service Not Available - Using Fallback Mode")
+            print("   Add OPENAI_API_KEY to .env file to enable LLM features")
+    except Exception as e:
+        print(f"⚠️  LLM Service Error: {e}")
+    
+    app.run(debug=config.DEBUG, host='0.0.0.0', port=5001)
