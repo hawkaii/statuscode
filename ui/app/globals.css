@@ -303,6 +303,19 @@
   }
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(4px) rotate(-1deg);
+  }
+}
+
 .neo-animate-bounce {
   animation: neo-bounce 2s infinite;
 }

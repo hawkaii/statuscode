@@ -15,13 +15,12 @@ npm install firebase
 Create a `.env.local` file in your project root:
 
 ```env
-NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyCkSrrcY9jyRKejVia4V2DJjcCixjDhwW8
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=unicompass-f026d.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=unicompass-f026d
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=unicompass-f026d.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=3165011419
-NEXT_PUBLIC_FIREBASE_APP_ID=1:3165011419:web:dd96a907183df87eb9bbfe
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-G79D6GQ5LW
+NEXT_PUBLIC_FIREBASE_API_KEY=enter-your-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN= enter-your-auth-domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID= enter-your-project-id
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID= enter-your-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID= enter-your-app-id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID= enter-your-measurement-id
 ```
 
 ### 3. Firebase Console Setup
