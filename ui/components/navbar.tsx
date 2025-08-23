@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { UserProfileDropdown } from "@/components/user-profile-dropdown"
+import { useAuth } from "@/lib/hooks/use-auth"
 import { Menu, X } from "lucide-react"
+import Link from "next/link"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { isAuthenticated, loading } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,9 +29,8 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-100 ${
-        isScrolled ? "bg-background neo-border-thick neo-shadow" : "bg-background neo-border-thick"
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-100 ${isScrolled ? "bg-background neo-border-thick neo-shadow" : "bg-background neo-border-thick"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -55,9 +58,17 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:block">
-            <Button className="bg-primary text-primary-foreground neo-border neo-shadow neo-hover font-black uppercase text-lg px-8 py-6 tracking-wide">
-              SIGN IN
-            </Button>
+            {loading ? (
+              <div className="w-12 h-12 bg-muted neo-border neo-shadow animate-pulse"></div>
+            ) : isAuthenticated ? (
+              <UserProfileDropdown />
+            ) : (
+              <Link href="/signin">
+                <Button className="bg-primary text-primary-foreground neo-border neo-shadow neo-hover font-black uppercase text-lg px-8 py-6 tracking-wide">
+                  SIGN IN
+                </Button>
+              </Link>
+            )}
           </div>
 
           <div className="md:hidden">
@@ -84,9 +95,17 @@ export function Navbar() {
                 </a>
               ))}
               <div className="px-3 py-4">
-                <Button className="w-full bg-primary text-primary-foreground neo-border neo-shadow font-black uppercase text-lg py-6 tracking-wide neo-hover">
-                  SIGN IN
-                </Button>
+                {loading ? (
+                  <div className="w-full h-12 bg-muted neo-border neo-shadow animate-pulse"></div>
+                ) : isAuthenticated ? (
+                  <UserProfileDropdown className="w-full" />
+                ) : (
+                  <Link href="/signin">
+                    <Button className="w-full bg-primary text-primary-foreground neo-border neo-shadow font-black uppercase text-lg py-6 tracking-wide neo-hover">
+                      SIGN IN
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

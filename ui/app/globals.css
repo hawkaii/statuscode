@@ -147,6 +147,14 @@
     border: 6px solid #000000;
   }
 
+  .neo-border-0 {
+    border: none;
+  }
+
+  .neo-shadow-none {
+    box-shadow: none;
+  }
+
   .neo-hover {
     transition: all 0.1s ease;
   }
@@ -156,19 +164,55 @@
     box-shadow: 12px 12px 0px #000000;
   }
 
-  /* Updated text shadows - purple shadows to black, black text gets light gray shadow */
+  /* Modern neo-brutalist text styling - clean, bold, high contrast */
   .neo-text-shadow {
-    text-shadow: 4px 4px 0px #000000;
+    text-shadow: 3px 3px 0px #000000;
   }
 
   .neo-text-shadow-black {
     color: #000000;
-    text-shadow: 2px 2px 4px #cccccc;
+    text-shadow: 1px 1px 0px #ffffff, 2px 2px 0px #000000;
   }
 
   .neo-text-shadow-white {
     color: #ffffff;
-    text-shadow: 4px 4px 0px #000000;
+    text-shadow: 2px 2px 0px #000000;
+  }
+
+  /* Neo-brutalist heading styles */
+  .neo-heading {
+    text-shadow: 3px 3px 0px #000000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .neo-heading-layered {
+    position: relative;
+    display: inline-block;
+  }
+
+  .neo-heading-layered::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: -1;
+    color: transparent;
+    -webkit-text-stroke: 2px #000000;
+    text-stroke: 2px #000000;
+  }
+
+  .neo-text-outline {
+    -webkit-text-stroke: 2px #000000;
+    text-stroke: 2px #000000;
+    color: transparent;
+  }
+
+  .neo-text-filled {
+    -webkit-text-stroke: 2px #000000;
+    text-stroke: 2px #000000;
+    color: #ffffff;
   }
 
   /* Added responsive shadow utilities for mobile */
@@ -269,4 +313,28 @@
 
 .neo-animate-pulse {
   animation: neo-pulse 2s infinite;
+}
+
+/* Additional animations for sign-in form */
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.slide-in-from-bottom-4 {
+  animation: slide-in-from-bottom 0.5s ease-out;
+}
+
+.duration-500 {
+  animation-duration: 0.5s;
 }
