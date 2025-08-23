@@ -15,6 +15,7 @@ npm install firebase
 Create a `.env.local` file in your project root:
 
 ```env
+
 NEXT_PUBLIC_FIREBASE_API_KEY=enter-your-api-key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN= enter-your-auth-domain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID= enter-your-project-id
