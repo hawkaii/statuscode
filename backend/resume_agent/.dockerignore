@@ -1,0 +1,49 @@
+# Ignore version control
+.git
+.gitignore
+
+# Ignore documentation
+README.md
+AGENTS.md
+docs/
+
+# Ignore tests (if any)
+tests/
+
+# Ignore local configs
+.env
+.envrc
+*.env
+
+# Ignore OS/IDE/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore Python cache/build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.manifest
+*.spec
+
+# Ignore logs
+*.log
+
+# Ignore coverage
+htmlcov/
+.coverage
+.tox/
+
+# Ignore Jupyter
+.ipynb_checkpoints/
