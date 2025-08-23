@@ -148,7 +148,7 @@ export default function ProfilePage() {
 
             {/* User Info */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-3xl font-black uppercase tracking-wider neo-text-shadow-black mb-2">
+              <h2 className="text-3xl font-black uppercase tracking-wider mb-2">
                 {user?.displayName || "User"}
               </h2>
               <p className="text-muted-foreground font-medium mb-4">{user?.email}</p>
@@ -198,7 +198,7 @@ export default function ProfilePage() {
               <div className="w-10 h-10 bg-primary flex items-center justify-center neo-border">
                 <section.icon className="w-5 h-5 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-black uppercase tracking-wider neo-text-shadow-black">
+              <h3 className="text-xl font-black uppercase tracking-wider">
                 {section.title}
               </h3>
             </div>
@@ -254,7 +254,7 @@ export default function ProfilePage() {
               <div className="w-10 h-10 bg-secondary flex items-center justify-center neo-border">
                 <section.icon className="w-5 h-5 text-secondary-foreground" />
               </div>
-              <h3 className="text-xl font-black uppercase tracking-wider neo-text-shadow-black">
+              <h3 className="text-xl font-black uppercase tracking-wider">
                 {section.title}
               </h3>
             </div>

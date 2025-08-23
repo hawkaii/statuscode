@@ -109,7 +109,7 @@ export default function ResumeAnalyzerPage() {
               <FileText className="w-6 h-6 text-secondary-foreground" />
             </div>
             <div>
-              <h1 className="text-3xl font-black uppercase tracking-wider neo-heading text-primary">
+              <h1 className="text-3xl font-black uppercase tracking-wider text-primary">
                 Resume Analyzer
               </h1>
               <p className="text-muted-foreground font-bold uppercase tracking-wider">
@@ -131,7 +131,7 @@ export default function ResumeAnalyzerPage() {
                 <Upload className="w-10 h-10 text-muted-foreground" />
               </div>
 
-              <h2 className="text-2xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-4">
                 Upload Your Resume
               </h2>
 
@@ -161,7 +161,7 @@ export default function ResumeAnalyzerPage() {
               </div>
 
               <div className="mt-8 space-y-4">
-                <h3 className="font-black uppercase tracking-wider text-lg neo-text-shadow-black">
+                <h3 className="font-black uppercase tracking-wider text-lg">
                   What We Analyze:
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
@@ -190,7 +190,7 @@ export default function ResumeAnalyzerPage() {
                 <Zap className="w-10 h-10 text-primary-foreground" />
               </div>
 
-              <h2 className="text-2xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-4">
                 Analyzing Your Resume
               </h2>
 
@@ -220,7 +220,7 @@ export default function ResumeAnalyzerPage() {
             {/* Overall Score */}
             <div className="bg-card neo-border neo-shadow p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-black uppercase tracking-wider neo-text-shadow-black">
+                <h2 className="text-2xl font-black uppercase tracking-wider">
                   Overall Score
                 </h2>
                 <div className="text-right">
@@ -250,7 +250,7 @@ export default function ResumeAnalyzerPage() {
                       <section.icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-black uppercase tracking-wider neo-text-shadow-black">
+                      <h3 className="font-black uppercase tracking-wider">
                         {section.title}
                       </h3>
                       <div className={cn("text-lg font-bold", getScoreColor(section.score))}>

@@ -22,7 +22,7 @@ export function VisionSection() {
     return () => clearInterval(interval)
   }, [])
   return (
-    <section className="bg-muted relative">
+    <section className="bg-muted relative pb-12 sm:pb-16 lg:pb-20 xl:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Animated GIFs Section */}
         <div className="flex justify-center mb-6 sm:mb-8 lg:mb-1">

@@ -122,7 +122,7 @@ export default function UniversityRecommenderPage() {
               <GraduationCap className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-3xl font-black uppercase tracking-wider neo-heading text-primary">
+              <h1 className="text-3xl font-black uppercase tracking-wider text-primary">
                 University Recommender
               </h1>
               <p className="text-muted-foreground font-bold uppercase tracking-wider">
@@ -140,7 +140,7 @@ export default function UniversityRecommenderPage() {
           /* Profile Input Form */
           <div className="bg-card neo-border neo-shadow p-8">
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl font-black uppercase tracking-wider mb-6 text-center neo-text-shadow-black">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-6 text-center">
                 Tell Us About Your Profile
               </h2>
 
@@ -239,7 +239,7 @@ export default function UniversityRecommenderPage() {
             {/* Results Header */}
             <div className="bg-card neo-border neo-shadow p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-black uppercase tracking-wider neo-text-shadow-black">
+                <h2 className="text-2xl font-black uppercase tracking-wider">
                   Your University Matches
                 </h2>
                 <div className="flex gap-2">
@@ -267,7 +267,7 @@ export default function UniversityRecommenderPage() {
                     <div className="flex items-center gap-3">
                       <div className="text-3xl">{uni.image}</div>
                       <div>
-                        <h3 className="text-xl font-black uppercase tracking-wider neo-text-shadow-black">
+                        <h3 className="text-xl font-black uppercase tracking-wider">
                           {uni.name}
                         </h3>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">

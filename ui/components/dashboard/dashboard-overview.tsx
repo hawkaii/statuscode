@@ -132,7 +132,7 @@ export function DashboardOverview() {
       {/* Welcome Section */}
       <div className="bg-card neo-border neo-shadow-xl p-8">
         <div className="text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-wider neo-heading text-primary mb-4">
+          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-wider text-primary mb-4">
             Welcome Back, {user?.displayName?.split(" ")[0] || "Student"}!
           </h1>
           <p className="text-lg text-muted-foreground font-bold uppercase tracking-wider">
@@ -153,7 +153,7 @@ export function DashboardOverview() {
             <div className={cn("w-12 h-12 mx-auto mb-4 flex items-center justify-center neo-border", stat.color)}>
               <stat.icon className={cn("w-6 h-6", stat.textColor)} />
             </div>
-            <h3 className="text-2xl font-black uppercase tracking-wider mb-2 neo-text-shadow-black">
+            <h3 className="text-2xl font-black uppercase tracking-wider mb-2">
               {stat.value}
             </h3>
             <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-1">
@@ -183,7 +183,7 @@ export function DashboardOverview() {
                 <card.icon className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-black uppercase tracking-wider mb-2 neo-text-shadow-black">
+                <h3 className="text-xl font-black uppercase tracking-wider mb-2">
                   {card.title}
                 </h3>
                 <p className="text-sm text-muted-foreground">
@@ -218,7 +218,7 @@ export function DashboardOverview() {
       <div className="bg-card neo-border neo-shadow p-6">
         <div className="flex items-center gap-3 mb-6">
           <TrendingUp className="w-6 h-6 text-primary" />
-          <h2 className="text-xl font-black uppercase tracking-wider neo-text-shadow-black">
+          <h2 className="text-xl font-black uppercase tracking-wider">
             Recent Activity
           </h2>
         </div>

@@ -70,7 +70,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center gap-4">
             <Button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              variant="ghost"
+              variant="ghost2"
               size="icon"
               className="md:hidden neo-border bg-background"
             >
@@ -79,7 +79,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
             <Button
               onClick={() => router.push("/")}
-              variant="ghost"
+              variant="ghost2"
               className="flex items-center gap-2 neo-border bg-background hover:bg-accent"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -87,7 +87,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </Button>
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wider neo-heading text-primary">
+          <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wider text-primary">
             UniCompass Dashboard
           </h1>
 
@@ -108,7 +108,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="md:hidden p-4 border-b-4 border-border">
             <Button
               onClick={() => setIsSidebarOpen(false)}
-              variant="ghost"
+              variant="ghost2"
               size="icon"
               className="neo-border bg-background hover:bg-destructive hover:text-destructive-foreground"
             >
@@ -119,7 +119,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Navigation */}
           <nav className="p-4 space-y-2">
             <div className="mb-6">
-              <h2 className="text-lg font-black uppercase tracking-wider text-muted-foreground mb-4 neo-text-shadow-black">
+              <h2 className="text-lg font-black uppercase tracking-wider text-muted-foreground mb-4">
                 Navigation
               </h2>
               <div className="w-16 h-1 bg-primary neo-shadow"></div>
@@ -128,7 +128,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             {navigationItems.map((item, index) => (
               <Link key={index} href={item.href}>
                 <Button
-                  variant="ghost"
+                  variant="ghost2"
                   className={cn(
                     "w-full justify-start h-16 text-left neo-border mb-3 bg-background p-4",
                     "hover:transform hover:translate-x-2 transition-all duration-200",

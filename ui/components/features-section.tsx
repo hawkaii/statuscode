@@ -36,7 +36,7 @@ export function FeaturesSection() {
     <section id="features" className="py-16 sm:py-24 lg:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <div className="inline-block bg-foreground text-background neo-border neo-shadow-xl p-3 sm:p-4 lg:p-6 neo-skew mb-6 sm:mb-8">
+          <div className="inline-block bg-foreground text-background neo-border neo-shadow-xl-gray p-3 sm:p-4 lg:p-6 neo-skew mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black uppercase tracking-tight neo-text-shadow">
               3 CORE PILLARS
             </h2>

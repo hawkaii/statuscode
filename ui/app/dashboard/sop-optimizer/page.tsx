@@ -125,7 +125,7 @@ export default function SOPOptimizerPage() {
     <div className="space-y-6">
       {/* Template Selection */}
       <div className="bg-card neo-border neo-shadow p-6">
-        <h2 className="text-2xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black">
+        <h2 className="text-2xl font-black uppercase tracking-wider mb-4">
           Choose Your Template
         </h2>
         <p className="text-muted-foreground mb-6 font-medium">
@@ -194,7 +194,7 @@ export default function SOPOptimizerPage() {
     <div className="space-y-6">
       {/* Program Details */}
       <div className="bg-card neo-border neo-shadow p-6">
-        <h2 className="text-2xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black">
+        <h2 className="text-2xl font-black uppercase tracking-wider mb-4">
           Program Details
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -222,7 +222,7 @@ export default function SOPOptimizerPage() {
       {/* Writing Area */}
       <div className="bg-card neo-border neo-shadow p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-black uppercase tracking-wider neo-text-shadow-black">
+          <h2 className="text-2xl font-black uppercase tracking-wider">
             Write Your SOP
           </h2>
           <div className="flex gap-2">
@@ -305,7 +305,7 @@ export default function SOPOptimizerPage() {
       {/* Overall Score */}
       <div className="bg-card neo-border neo-shadow p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-black uppercase tracking-wider neo-text-shadow-black">
+          <h2 className="text-2xl font-black uppercase tracking-wider">
             SOP Analysis Results
           </h2>
           <div className="text-right">
@@ -409,7 +409,7 @@ export default function SOPOptimizerPage() {
               <BookOpen className="w-6 h-6 text-accent-foreground" />
             </div>
             <div>
-              <h1 className="text-3xl font-black uppercase tracking-wider neo-heading text-primary">
+              <h1 className="text-3xl font-black uppercase tracking-wider text-primary">
                 SOP Optimizer
               </h1>
               <p className="text-muted-foreground font-bold uppercase tracking-wider">
@@ -460,7 +460,7 @@ export default function SOPOptimizerPage() {
               <div className="w-20 h-20 bg-primary flex items-center justify-center neo-border mx-auto mb-6 animate-pulse">
                 <Sparkles className="w-10 h-10 text-primary-foreground" />
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-4 neo-text-shadow-simple">
                 Analyzing Your SOP
               </h2>
               <p className="text-muted-foreground mb-6 font-medium">

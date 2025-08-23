@@ -127,7 +127,7 @@ export function UserProfileDropdown({ className }: UserProfileDropdownProps) {
               <Button
                 key={index}
                 onClick={item.action}
-                variant="ghost"
+                variant="ghost2"
                 className={cn(
                   "w-full justify-start h-12 text-left font-bold uppercase tracking-wider text-sm neo-border mb-2 last:mb-0",
                   "bg-background hover:transform hover:translate-x-1 transition-all duration-150",

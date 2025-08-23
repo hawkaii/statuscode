@@ -25,7 +25,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links section */}
-          <div className="bg-secondary text-secondary-foreground neo-border-thick neo-shadow-lg p-4 sm:p-6 lg:p-8 -neo-rotate">
+          <div className="bg-primary text-primary-foreground neo-border-thick neo-shadow-lg p-4 sm:p-6 lg:p-8 -neo-rotate">
             <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase mb-4 sm:mb-6 neo-text-shadow">QUICK LINKS</h3>
             <ul className="space-y-3 sm:space-y-4">
               <li>
@@ -56,7 +56,7 @@ export function Footer() {
           </div>
 
           {/* Social Links section */}
-          <div className="bg-accent text-accent-foreground neo-border-thick neo-shadow-lg p-4 sm:p-6 lg:p-8 neo-rotate md:col-span-2 lg:col-span-1">
+          <div className="bg-primary text-primary-foreground neo-border-thick neo-shadow-lg p-4 sm:p-6 lg:p-8 neo-rotate md:col-span-2 lg:col-span-1">
             <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase mb-4 sm:mb-6 neo-text-shadow">SOCIAL LINKS</h3>
             <div className="flex gap-3 sm:gap-4">
               <a

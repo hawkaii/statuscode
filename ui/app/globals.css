@@ -169,6 +169,26 @@
     text-shadow: 3px 3px 0px #000000;
   }
 
+  .neo-text-shadow-gray {
+    text-shadow: 3px 3px 0px #6b7280;
+  }
+
+  .neo-text-shadow-light-gray {
+    text-shadow: 3px 3px 0px #d1d5db;
+  }
+
+  .neo-text-shadow-simple {
+    text-shadow: 1px 1px 0px #000000;
+  }
+
+  .neo-shadow-gray {
+    box-shadow: 8px 8px 0px #6b7280;
+  }
+
+  .neo-shadow-xl-gray {
+    box-shadow: 16px 16px 0px #6b7280;
+  }
+
   .neo-text-shadow-black {
     color: #000000;
     text-shadow: 1px 1px 0px #ffffff, 2px 2px 0px #000000;
