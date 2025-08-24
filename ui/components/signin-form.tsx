@@ -159,7 +159,7 @@ export function SignInForm({ className }: SignInFormProps) {
         className="absolute top-4 right-4 h-8 w-8 neo-border bg-background hover:bg-destructive hover:text-destructive-foreground transition-all duration-200"
         onClick={() => router.push("/")}
       >
-        <X className="w-4 h-4" />
+        <X className="w-4 h-4 text-black" />
       </Button>
 
       {/* Header with Modern Neo-Brutalist Styling */}
