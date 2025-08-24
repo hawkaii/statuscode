@@ -1,0 +1,22 @@
+# Core Flask dependencies (minimal for faster Railway builds)
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# Essential utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# Data validation (lighter alternative)
+pydantic==2.4.2
+
+# Optional AI dependencies (install these via Railway environment if needed)
+# Uncomment these if you have the API keys configured:
+# groq==0.4.1
+# azure-ai-formrecognizer==3.3.0  
+# google-generativeai==0.3.2
+
+# Math/Science (essential for predictions)
+numpy==1.24.3
+
+# Production server
+gunicorn==21.2.0
