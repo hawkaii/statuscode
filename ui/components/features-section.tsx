@@ -1,7 +1,10 @@
 "use client"
 import { GraduationCap, FileText, PenTool } from "lucide-react"
+import { useProtectedNavigation } from "@/lib/hooks/use-protected-navigation"
 
 export function FeaturesSection() {
+  const { handleProtectedNavigation } = useProtectedNavigation()
+
   const features = [
     {
       icon: GraduationCap,
@@ -11,6 +14,7 @@ export function FeaturesSection() {
       bgColor: "bg-primary",
       textColor: "text-primary-foreground",
       emoji: "🎓",
+      target: "university-recommendation",
     },
     {
       icon: FileText,
@@ -20,6 +24,7 @@ export function FeaturesSection() {
       bgColor: "bg-secondary",
       textColor: "text-secondary-foreground",
       emoji: "📄",
+      target: "resume-analysis",
     },
     {
       icon: PenTool,
@@ -29,6 +34,7 @@ export function FeaturesSection() {
       bgColor: "bg-accent",
       textColor: "text-accent-foreground",
       emoji: "✍️",
+      target: "sop",
     },
   ]
 
@@ -52,7 +58,8 @@ export function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className={`${feature.bgColor} ${feature.textColor} neo-border-thick neo-shadow-xl neo-hover p-4 sm:p-6 lg:p-8 ${index % 2 === 0 ? "neo-rotate" : "-neo-rotate"
+              onClick={() => handleProtectedNavigation(feature.target)}
+              className={`${feature.bgColor} ${feature.textColor} neo-border-thick neo-shadow-xl neo-hover p-4 sm:p-6 lg:p-8 cursor-pointer transition-all duration-200 hover:transform hover:scale-105 ${index % 2 === 0 ? "neo-rotate" : "-neo-rotate"
                 }`}
             >
               <div className="text-center mb-6 sm:mb-8">

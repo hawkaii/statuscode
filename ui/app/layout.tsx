@@ -22,6 +22,15 @@ export const metadata: Metadata = {
   description:
     "Simplify your university application journey with AI-powered predictions, resume analysis, and SOP crafting.",
   generator: "v0.app",
+  icons: {
+    icon: [
+      { url: "/adlogo.png", type: "image/png" },
+      { url: "/adlogo.png", sizes: "32x32", type: "image/png" },
+      { url: "/adlogo.png", sizes: "16x16", type: "image/png" }
+    ],
+    shortcut: "/adlogo.png",
+    apple: "/adlogo.png",
+  },
 }
 
 export default function RootLayout({

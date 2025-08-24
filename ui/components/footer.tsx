@@ -1,6 +1,9 @@
+"use client"
 import { Github, Linkedin, Zap, Target, Brain } from "lucide-react"
+import { useProtectedNavigation } from "@/lib/hooks/use-protected-navigation"
 
 export function Footer() {
+  const { handleProtectedNavigation } = useProtectedNavigation()
   return (
     <footer className="bg-foreground text-background relative overflow-hidden">
       {/* Background decorative elements - responsive sizes */}
@@ -29,24 +32,26 @@ export function Footer() {
             <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase mb-4 sm:mb-6 neo-text-shadow">QUICK LINKS</h3>
             <ul className="space-y-3 sm:space-y-4">
               <li>
-                <a
-                  href="#features"
-                  className="block bg-background text-foreground neo-border p-2 sm:p-3 neo-hover font-bold uppercase text-xs sm:text-sm tracking-wide"
+                <button
+                  onClick={() => handleProtectedNavigation("features")}
+                  className="block w-full text-left bg-background text-foreground neo-border p-2 sm:p-3 neo-hover font-bold uppercase text-xs sm:text-sm tracking-wide cursor-pointer"
                 >
                   FEATURES
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#roadmap"
-                  className="block bg-background text-foreground neo-border p-2 sm:p-3 neo-hover font-bold uppercase text-xs sm:text-sm tracking-wide"
+                <button
+                  onClick={() => handleProtectedNavigation("roadmap")}
+                  className="block w-full text-left bg-background text-foreground neo-border p-2 sm:p-3 neo-hover font-bold uppercase text-xs sm:text-sm tracking-wide cursor-pointer"
                 >
                   ROADMAP
-                </a>
+                </button>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://github.com/hawkaii/statuscode"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block bg-background text-foreground neo-border p-2 sm:p-3 neo-hover font-bold uppercase text-xs sm:text-sm tracking-wide"
                 >
                   GITHUB REPO
@@ -60,7 +65,9 @@ export function Footer() {
             <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase mb-4 sm:mb-6 neo-text-shadow">SOCIAL LINKS</h3>
             <div className="flex gap-3 sm:gap-4">
               <a
-                href="#"
+                href="https://github.com/hawkaii/statuscode"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-background text-foreground neo-border neo-shadow p-3 sm:p-4 neo-hover"
                 aria-label="GitHub"
               >
