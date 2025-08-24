@@ -1,202 +1,221 @@
-# UniCompass AI Suite
+# UniCompass Unified Backend
 
-UniCompass is a smart, multi-agent platform that acts as a personal AI counselor for students applying to foreign universities. It orchestrates specialized agents for university prediction, resume optimization, essay crafting, and deadline tracking to provide a centralized and intelligent application assistant.
+A unified Flask server that consolidates all UniCompass agent functionalities into a single application, providing comprehensive university application assistance services.
 
-This project was built for a hackathon, following the detailed project plan in `plan.md`.
+## Features
 
-## System Architecture
+### 🎯 Resume Analysis Service
+- **OCR Processing**: Extract text from PDF resumes using Azure Document Intelligence
+- **Hybrid ATS Scoring**: 100-point scoring system combining traditional metrics and AI insights
+- **AI Enhancement**: Groq-powered resume analysis and feedback generation
+- **Comprehensive Feedback**: Priority-based actionable recommendations
 
-The system follows a microservice-based, multi-agent architecture. The `OrchestratorAgent` serves the user interface and communicates with the specialized agents via REST APIs.
+### 🏫 University Prediction Service  
+- **ML-based Predictions**: University admission probability predictions
+- **Tiered Recommendations**: Safety, target, and reach school categorization
+- **Profile Optimization**: Personalized improvement suggestions
+- **Caching System**: Performance-optimized with intelligent caching
 
-```
-+------------------+      (User Interaction)
-|   Browser / UI   |
-+------------------+
-         |
-         v
-+------------------+      (Main Server @ port 5000)
-| OrchestratorAgent|
-|  (Flask App)     |
-+------------------+
-         |
-         |---- A2A Protocol ----> +-------------------+ (Microservice @ port 5002)
-         |                       |  PredictionAgent  |
-         |                       +-------------------+
-         |
-         |---- A2A Protocol ----> +-------------------+ (Microservice @ port 5001)
-         |                       |    ResumeAgent    |
-         |                       +-------------------+
-         |
-         |---- MCP Protocol ------> +-------------------+ (External Tool)
-                                 |    Gemini API     |
-                                 +-------------------+
-```
+### 📝 Academic API Service
+- **Bulk Predictions**: Analyze admission chances across 50+ universities
+- **Single University Analysis**: Detailed predictions for specific schools
+- **Comprehensive Database**: Extended university database with detailed requirements
+- **Statistical Summaries**: Aggregate analysis and probability distributions
 
-## Persistent History, User Dashboard & Deadline Tracker
+### ✍️ SOP (Statement of Purpose) Service
+- **AI-Powered Analysis**: Gemini AI integration for content analysis
+- **Enhancement Suggestions**: Specific improvement recommendations
+- **Database Storage**: SQLite-based SOP document management
+- **Quality Metrics**: Word count, readability, and structure analysis
 
-UniCompass now supports persistent storage of agent results (resume analysis, SOP drafts, conversations) and personalized tracking of application deadlines and important dates. Users can revisit previous outcomes and stay on top of upcoming deadlines via their dashboard. All data is securely stored and access-controlled using JWT authentication.
+## Quick Start
 
-### Database Schema
-- `users`: id, email, name, created_at
-- `agent_results`: id, user_id, agent_type, result_type, result_data (JSONB), created_at
-- `conversations`: id, user_id, agent_id, messages (JSONB), created_at
-- `sop_drafts`: id, user_id, draft_text, status, created_at, updated_at
-- `important_dates`: id, user_id, university_name, program_name, date_type, date, notes, reminder_sent, created_at
+### Prerequisites
+- Python 3.8+
+- API Keys for:
+  - Groq API (for LLM functionality)
+  - Azure Document Intelligence (for OCR)
+  - Google Gemini AI (for SOP analysis)
 
-### API Endpoints
-- `POST /api/results` (save new agent result)
-- `GET /api/results?user_id=...` (list previous results)
-- `GET /api/conversations?user_id=...` (list previous conversations)
-- `POST /api/sop_drafts` (save new SOP draft)
-- `GET /api/sop_drafts?user_id=...` (list previous SOP drafts)
-- `POST /api/important_dates` (add a new important date)
-- `GET /api/important_dates?user_id=...` (list all dates for a user)
-- `GET /api/important_dates/upcoming?user_id=...` (list only upcoming dates)
-- `DELETE /api/important_dates/:id` (remove a date)
-- `POST /api/important_dates/remind` (trigger/send reminders)
+### Installation
 
-All endpoints require JWT Bearer authentication. Users only access their own data.
+1. **Clone and setup**:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
 
-## How to Run
+2. **Configure environment**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API keys
+   ```
 
-This project requires Python and Flask. It is designed to be run locally with each agent running in a separate terminal. You will also need a PostgreSQL database for persistent history and deadline tracking.
+3. **Run the server**:
+   ```bash
+   python app.py
+   ```
 
-### 1. Install Dependencies
+The server will start on `http://localhost:5000`
 
-Install the required Python libraries for all agents:
+## API Endpoints
 
+### 🏠 General Endpoints
+- `GET /` - Service information and available endpoints
+- `GET /health` - Unified health check for all services
+
+### 📄 Resume Analysis
+- `POST /api/resume/ocr_resume` - Extract text from PDF resume
+- `POST /api/resume/analyze_resume` - Comprehensive resume analysis
+- `GET /api/resume/health` - Resume service health check
+- `GET /api/resume/llm_status` - LLM service status
+- `GET /api/resume/ocr_status` - OCR service status
+
+### 🎓 University Prediction
+- `POST /api/prediction/predict_universities` - University admission predictions
+- `GET /api/prediction/health` - Prediction service health check
+
+### 🏛️ Academic API
+- `POST /api/academic/predict` - Bulk university predictions (50+ universities)
+- `POST /api/academic/predict_single` - Single university prediction
+- `GET /api/academic/health` - Academic API health check
+
+### 📝 Statement of Purpose
+- `POST /api/sop/analyze` - Analyze SOP quality and structure
+- `POST /api/sop/enhance` - AI-powered SOP enhancement
+- `POST /api/sop/save` - Save SOP to database
+- `GET /api/sop/load/<sop_id>` - Load SOP from database
+- `GET /api/sop/health` - SOP service health check
+
+### 🔄 Unified Analysis (Orchestrator)
+- `POST /api/analyze` - Unified analysis endpoint (coordinates all services)
+
+## Example Usage
+
+### Resume Analysis
 ```bash
-pip install Flask requests google-generativeai psycopg2-binary
+curl -X POST http://localhost:5000/api/resume/analyze_resume \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Your resume text here...",
+    "options": {
+      "include_ai_insights": true
+    }
+  }'
 ```
 
-*(Note: The Gemini API is mocked in this version, so the `google-generativeai` library is not strictly required to run the demo.)*
-
-### 2. Set Up the Database
-
-Install PostgreSQL and create a database named `unicompass`.
-
+### University Prediction
 ```bash
-# On Ubuntu
-sudo apt-get install postgresql
-sudo -u postgres createdb unicompass
+curl -X POST http://localhost:5000/api/prediction/predict_universities \
+  -H "Content-Type: application/json" \
+  -d '{
+    "gpa": 3.7,
+    "gre_verbal": 160,
+    "gre_quantitative": 165,
+    "research_experience": true,
+    "target_program": "computer science"
+  }'
 ```
 
-Set the following environment variables in a `.env` file:
-
-```
-DATABASE_URL=postgresql://username:password@localhost/unicompass
-JWT_SECRET=your_jwt_secret
-```
-
-### 3. Run the Agents
-
-Open three separate terminal windows.
-
-**Terminal 1: Run the ResumeAgent**
-
+### Unified Analysis
 ```bash
-cd resume_agent
-python app.py
+curl -X POST http://localhost:5000/api/analyze \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "full",
+    "resume_text": "Your resume...",
+    "profile": {
+      "gpa": 3.7,
+      "gre_verbal": 160,
+      "gre_quantitative": 165
+    },
+    "sop_text": "Your statement of purpose...",
+    "academic_profile": {
+      "gpa": 3.7,
+      "major": "computer science"
+    }
+  }'
 ```
-*This will start the ResumeAgent on `http://localhost:5001`.*
 
-**Terminal 2: Run the PredictionAgent**
+## Architecture
 
-```bash
-cd prediction_agent
-python app.py
+### Microservices Consolidation
+The unified server consolidates the following original agents:
+- **Resume Agent** (Port 5001) → `/api/resume/*`
+- **Prediction Agent** (Port 5002) → `/api/prediction/*` 
+- **Academic API** (Port 5003) → `/api/academic/*`
+- **SOP Agent** → `/api/sop/*`
+- **Orchestrator** (Port 5000) → `/api/analyze`
+
+### Service Structure
 ```
-*This will start the PredictionAgent on `http://localhost:5002`.*
-
-**Terminal 3: Run the OrchestratorAgent**
-
-```bash
-cd orchestrator
-python app.py
+backend/
+├── app.py                 # Main Flask application
+├── services/              # Core service implementations
+│   ├── resume_service.py
+│   ├── prediction_service.py
+│   ├── academic_api_service.py
+│   └── sop_service.py
+├── models/                # Data models and schemas
+│   └── data_models.py
+├── utils/                 # Utilities and configuration
+│   ├── config.py
+│   └── logger.py
+└── requirements.txt       # Dependencies
 ```
-*This will start the main application on `http://localhost:5000`.*
 
-### 4. Access the Application
+### Technology Stack
+- **Framework**: Flask with CORS support
+- **AI Services**: Groq API, Azure Document Intelligence, Google Gemini
+- **Database**: SQLite for SOP storage
+- **Data Validation**: Pydantic models
+- **Caching**: In-memory caching with configurable size
+- **Logging**: Centralized logging with file and console output
 
-Open your web browser and navigate to:
+## Scoring Systems
 
-**http://localhost:5000**
+### Resume ATS Score (100 points total)
+- **Keywords** (40 points): Technical and soft skill keywords
+- **Action Verbs** (25 points): Strong action verbs usage
+- **Length** (20 points): Optimal word count (300-800 words)
+- **Format** (15 points): Structure and completeness
 
-You can now use the UniCompass AI Suite to predict universities, analyze your resume, craft a Statement of Purpose, revisit previous results, and track all your important application deadlines in your dashboard.
+### University Prediction Scoring
+- **GPA Factor** (35%): Academic performance weight
+- **GRE Scores** (25%): Standardized test performance  
+- **Language Tests** (10%): TOEFL/IELTS scores
+- **Research Experience** (15%): Publications and research background
+- **Work Experience** (10%): Professional experience
+- **Program Fit** (5%): Target program alignment
 
-## API Contracts
+## Environment Variables
 
-The agents communicate using the following simple REST API contracts.
+Required environment variables (see `.env.example`):
+- `OPENAI_API_KEY`: Groq API key for LLM functionality
+- `DOCUMENTINTELLIGENCE_API_KEY`: Azure Document Intelligence key
+- `DOCUMENTINTELLIGENCE_ENDPOINT`: Azure service endpoint
+- `GEMINI_API_KEY`: Google Gemini API key for SOP analysis
+- `DEBUG`: Enable debug mode (true/false)
+- `PORT`: Server port (default: 5000)
 
-### A. PredictionAgent
+## Health Monitoring
 
-*   **Endpoint:** `POST /predict_universities`
-*   **Request Body:**
-    ```json
-    {
-        "gre": 325,
-        "toefl": 112,
-        "gpa": 3.8
-    }
-    ```
-*   **Success Response (200 OK):**
-    ```json
-    {
-        "universities": [
-            "University Name 1",
-            "University Name 2"
-        ]
-    }
-    ```
+Each service provides detailed health checks:
+- **Individual Service Health**: `/api/{service}/health`
+- **Unified Health Check**: `/health`
+- **Service Dependencies**: API connectivity status
+- **Performance Metrics**: Request counts, cache statistics
 
-### B. ResumeAgent
+## Error Handling
 
-*   **Endpoint:** `POST /analyze_resume`
-*   **Request Body:**
-    ```json
-    {
-        "resume_text": "Full text of the resume..."
-    }
-    ```
-*   **Success Response (200 OK):**
-    ```json
-    {
-        "ats_score": 92,
-        "feedback": [
-            "Actionable feedback point 1.",
-            "Actionable feedback point 2."
-        ]
-    }
-    ```
+- Graceful degradation when AI services are unavailable
+- Detailed error messages with request IDs for tracking
+- Fallback to traditional methods when AI enhancement fails
+- Comprehensive logging for debugging and monitoring
 
-### C. Important Dates Tracker
+## Performance Features
 
-*   **Endpoint:** `POST /api/important_dates`
-*   **Request Body:**
-    ```json
-    {
-        "university_name": "MIT",
-        "program_name": "MS Computer Science",
-        "date_type": "application_deadline",
-        "date": "2025-12-01T23:59:00Z",
-        "notes": "Early action deadline"
-    }
-    ```
-*   **Success Response (200 OK):**
-    ```json
-    {
-        "id": 1,
-        "user_id": 123,
-        "university_name": "MIT",
-        "program_name": "MS Computer Science",
-        "date_type": "application_deadline",
-        "date": "2025-12-01T23:59:00Z",
-        "notes": "Early action deadline",
-        "reminder_sent": false,
-        "created_at": "2025-08-22T10:00:00Z"
-    }
-    ```
-
-## Authentication
-
-All API endpoints require JWT Bearer authentication. See `architecture.md` for details on how JWTs are issued and validated.
+- **Intelligent Caching**: Results caching with configurable TTL
+- **Request Tracking**: Unique request IDs for monitoring
+- **Parallel Processing**: Concurrent analysis in unified endpoint
+- **Database Connection Pooling**: Efficient database operations
