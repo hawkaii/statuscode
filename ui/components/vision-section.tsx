@@ -22,7 +22,7 @@ export function VisionSection() {
     return () => clearInterval(interval)
   }, [])
   return (
-    <section className="bg-muted relative">
+    <section className="bg-muted relative pb-12 sm:pb-16 lg:pb-20 xl:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Animated GIFs Section */}
         <div className="flex justify-center mb-6 sm:mb-8 lg:mb-1">
@@ -58,11 +58,11 @@ export function VisionSection() {
         <div className="max-w-6xl mx-auto">
           <div className="bg-foreground text-background neo-border-thick neo-shadow-xl p-6 sm:p-8 lg:p-12 neo-rotate mb-8 sm:mb-12">
             <div className="relative">
-              <div className="absolute -top-4 sm:-top-6 lg:-top-8 -left-4 sm:-left-6 lg:-left-8 bg-accent neo-border neo-shadow p-2 sm:p-3 lg:p-4">
+              <div className="absolute -top-16 sm:-top-15 lg:-top-18 -left-6 sm:-left-8 lg:-left-10 bg-accent neo-border neo-shadow p-2 sm:p-3 lg:p-4">
                 <Quote className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-foreground" />
               </div>
               <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-tight font-black uppercase tracking-wide pt-6 sm:pt-8">
-                "APPLYING TO FOREIGN UNIVERSITIES IS A FRAGMENTED AND STRESSFUL PROCESS. UNICOMPASS AI SUITE IS HERE TO
+                "APPLYING TO FOREIGN UNIVERSITIES IS A FRAGMENTED AND STRESSFUL PROCESS. ACADEMIA AI SUITE IS HERE TO
                 CHANGE THAT. BY UNITING MULTIPLE SPECIALIZED AI AGENTS, WE PROVIDE STUDENTS WITH A CENTRALIZED,
                 INTELLIGENT, AND EASY-TO-USE ADMISSIONS ASSISTANT."
               </blockquote>

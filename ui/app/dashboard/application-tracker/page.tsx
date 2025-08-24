@@ -180,7 +180,7 @@ export default function ApplicationTrackerPage() {
                 <BarChart3 className="w-6 h-6 text-destructive-foreground" />
               </div>
               <div>
-                <h1 className="text-3xl font-black uppercase tracking-wider neo-heading text-primary">
+                <h1 className="text-3xl font-black uppercase tracking-wider text-primary">
                   Application Tracker
                 </h1>
                 <p className="text-muted-foreground font-bold uppercase tracking-wider">
@@ -222,7 +222,7 @@ export default function ApplicationTrackerPage() {
         {/* Add Application Form */}
         {showAddForm && (
           <div className="bg-card neo-border neo-shadow p-6">
-            <h2 className="text-xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black">
+            <h2 className="text-xl font-black uppercase tracking-wider mb-4">
               Add New Application
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -321,7 +321,7 @@ export default function ApplicationTrackerPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-black uppercase tracking-wider neo-text-shadow-black">
+                      <h3 className="text-xl font-black uppercase tracking-wider">
                         {app.university}
                       </h3>
                       <div className={cn("px-3 py-1 text-xs font-bold uppercase tracking-wider neo-border", getStatusColor(app.status))}>
@@ -418,7 +418,7 @@ export default function ApplicationTrackerPage() {
 
         {/* Upcoming Deadlines */}
         <div className="bg-card neo-border neo-shadow p-6">
-          <h2 className="text-xl font-black uppercase tracking-wider mb-4 neo-text-shadow-black flex items-center gap-2">
+          <h2 className="text-xl font-black uppercase tracking-wider mb-4 flex items-center gap-2">
             <AlertTriangle className="w-5 h-5 text-accent" />
             Upcoming Deadlines
           </h2>

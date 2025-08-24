@@ -21,7 +21,7 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-primary neo-border neo-shadow-xl animate-pulse mx-auto mb-4"></div>
-          <p className="text-lg font-bold uppercase tracking-wider neo-text-shadow-black">
+          <p className="text-lg font-bold uppercase tracking-wider">
             Loading Dashboard...
           </p>
         </div>

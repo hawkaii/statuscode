@@ -1,7 +1,10 @@
 "use client"
 import { GraduationCap, FileText, PenTool } from "lucide-react"
+import { useProtectedNavigation } from "@/lib/hooks/use-protected-navigation"
 
 export function FeaturesSection() {
+  const { handleProtectedNavigation } = useProtectedNavigation()
+
   const features = [
     {
       icon: GraduationCap,
@@ -11,6 +14,7 @@ export function FeaturesSection() {
       bgColor: "bg-primary",
       textColor: "text-primary-foreground",
       emoji: "🎓",
+      target: "university-recommendation",
     },
     {
       icon: FileText,
@@ -20,6 +24,7 @@ export function FeaturesSection() {
       bgColor: "bg-secondary",
       textColor: "text-secondary-foreground",
       emoji: "📄",
+      target: "resume-analysis",
     },
     {
       icon: PenTool,
@@ -29,6 +34,7 @@ export function FeaturesSection() {
       bgColor: "bg-accent",
       textColor: "text-accent-foreground",
       emoji: "✍️",
+      target: "sop",
     },
   ]
 
@@ -36,7 +42,7 @@ export function FeaturesSection() {
     <section id="features" className="py-16 sm:py-24 lg:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <div className="inline-block bg-foreground text-background neo-border neo-shadow-xl p-3 sm:p-4 lg:p-6 neo-skew mb-6 sm:mb-8">
+          <div className="inline-block bg-foreground text-background neo-border neo-shadow-xl-gray p-3 sm:p-4 lg:p-6 neo-skew mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black uppercase tracking-tight neo-text-shadow">
               3 CORE PILLARS
             </h2>
@@ -52,7 +58,8 @@ export function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className={`${feature.bgColor} ${feature.textColor} neo-border-thick neo-shadow-xl neo-hover p-4 sm:p-6 lg:p-8 ${index % 2 === 0 ? "neo-rotate" : "-neo-rotate"
+              onClick={() => handleProtectedNavigation(feature.target)}
+              className={`${feature.bgColor} ${feature.textColor} neo-border-thick neo-shadow-xl neo-hover p-4 sm:p-6 lg:p-8 cursor-pointer transition-all duration-200 hover:transform hover:scale-105 ${index % 2 === 0 ? "neo-rotate" : "-neo-rotate"
                 }`}
             >
               <div className="text-center mb-6 sm:mb-8">

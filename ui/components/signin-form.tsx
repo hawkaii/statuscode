@@ -159,7 +159,7 @@ export function SignInForm({ className }: SignInFormProps) {
         className="absolute top-4 right-4 h-8 w-8 neo-border bg-background hover:bg-destructive hover:text-destructive-foreground transition-all duration-200"
         onClick={() => router.push("/")}
       >
-        <X className="w-4 h-4" />
+        <X className="w-4 h-4 text-black" />
       </Button>
 
       {/* Header with Modern Neo-Brutalist Styling */}
@@ -173,7 +173,7 @@ export function SignInForm({ className }: SignInFormProps) {
         <div className="relative mb-6">
           <h2 className="text-3xl font-black uppercase tracking-wider text-primary mb-4 relative inline-block">
             <span className="relative z-20 bg-background px-6 py-3 neo-border transform rotate-1 neo-text-filled">
-              BRUTALIST TEAM
+              UNICOMPASS TEAM
             </span>
             <div className="absolute inset-0 bg-secondary transform translate-x-3 translate-y-3 neo-border z-10"></div>
             <div className="absolute inset-0 bg-accent transform translate-x-6 translate-y-6 neo-border z-0"></div>
