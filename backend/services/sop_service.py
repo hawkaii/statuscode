@@ -24,7 +24,7 @@ class SOPService:
         try:
             if config.GEMINI_API_KEY:
                 genai.configure(api_key=config.GEMINI_API_KEY)
-                self.model = genai.GenerativeModel('gemini-pro')
+                self.model = genai.GenerativeModel('gemini-1.5-flash')
                 logger.info("Gemini AI client initialized successfully")
             else:
                 self.model = None
