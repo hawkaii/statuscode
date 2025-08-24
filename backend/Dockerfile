@@ -35,11 +35,15 @@ RUN useradd --create-home --shell /bin/bash app \
 USER app
 
 # Expose port (Railway will override this)
-EXPOSE 5000
+EXPOSE $PORT
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:${PORT:-5000}/health || exit 1
 
-# Run the application
-CMD ["python", "app.py"]
+# Use Gunicorn for production, fallback to development server
+CMD if [ "$RAILWAY_ENVIRONMENT" = "production" ]; then \
+        gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 2 --timeout 120 wsgi:application; \
+    else \
+        python app.py; \
+    fi
