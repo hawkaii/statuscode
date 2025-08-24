@@ -65,33 +65,33 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-card neo-border-thick neo-shadow sticky top-0 z-40">
-        <div className="flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-4">
+      <header className="bg-card neo-border-thick neo-shadow sticky top-0 z-40 w-full">
+        <div className="flex items-center justify-between px-2 sm:px-4 py-3 sm:py-4 max-w-full">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
             <Button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               variant="ghost2"
               size="icon"
-              className="md:hidden neo-border bg-background"
+              className="md:hidden neo-border bg-background flex-shrink-0"
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
             </Button>
 
             <Button
               onClick={() => router.push("/")}
               variant="ghost2"
-              className="flex items-center gap-2 neo-border bg-background hover:bg-accent"
+              className="flex items-center gap-1 sm:gap-2 neo-border bg-background hover:bg-accent min-w-0"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline font-bold uppercase tracking-wider">Back to Home</span>
+              <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="hidden sm:inline font-bold uppercase tracking-wider text-xs sm:text-sm truncate">Back to Home</span>
             </Button>
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wider text-primary">
-            UniCompass Dashboard
+          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-wider text-primary text-center flex-1 min-w-0 truncate px-2">
+            AcademiaAI Dashboard
           </h1>
 
-          <div className="w-20"></div> {/* Spacer for centering */}
+          <div className="w-8 sm:w-12 md:w-20 flex-shrink-0"></div> {/* Spacer for centering */}
         </div>
       </header>
 
@@ -99,7 +99,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Sidebar */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-30 w-80 bg-card neo-border-thick neo-shadow transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
+            "fixed inset-y-0 left-0 z-30 w-64 sm:w-72 md:w-80 bg-card neo-border-thick neo-shadow transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           )}
           style={{ top: "88px" }} // Account for header height
@@ -112,7 +112,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               size="icon"
               className="neo-border bg-background hover:bg-destructive hover:text-destructive-foreground"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-black" />
             </Button>
           </div>
 
@@ -178,8 +178,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 min-h-screen p-4 md:p-8">
-          {children}
+        <main className="flex-1 min-h-screen p-2 sm:p-4 md:p-6 lg:p-8 w-full">
+          <div className="max-w-full mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>

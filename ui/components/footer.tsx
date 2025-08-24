@@ -18,7 +18,7 @@ export function Footer() {
             <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase mb-4 sm:mb-6 neo-text-shadow">ABOUT</h3>
             <div className="bg-background text-foreground neo-border p-3 sm:p-4 neo-skew">
               <p className="font-bold uppercase text-xs sm:text-sm leading-tight">
-                UNICOMPASS AI SUITE IS YOUR AI-POWERED ADMISSIONS COUNSELOR, DESIGNED TO SIMPLIFY THE APPLICATION
+                ACADEMIA AI SUITE IS YOUR AI-POWERED ADMISSIONS COUNSELOR, DESIGNED TO SIMPLIFY THE APPLICATION
                 PROCESS WITH SMART PREDICTIONS, RESUME ANALYSIS, AND SOP GUIDANCE.
               </p>
             </div>
@@ -93,7 +93,7 @@ export function Footer() {
         <div className="mt-8 sm:mt-12 lg:mt-16 pt-6 sm:pt-8">
           <div className="bg-background text-foreground neo-border-thick neo-shadow-xl p-4 sm:p-6 text-center neo-skew">
             <p className="font-black uppercase text-sm sm:text-base lg:text-lg tracking-wide">
-              © 2025 UNICOMPASS AI SUITE. ALL RIGHTS RESERVED.
+              © 2025 ACADEMIA AI SUITE. ALL RIGHTS RESERVED.
             </p>
           </div>
         </div>

@@ -91,7 +91,7 @@ export function HeroSection() {
             {/* Description - Fixed text visibility */}
             <div className="bg-foreground text-background neo-border neo-shadow-lg p-3 sm:p-5 lg:p-7 xl:p-10 max-w-5xl mx-auto neo-skew relative z-10">
               <p className="text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold leading-tight uppercase tracking-wide">
-                APPLYING TO FOREIGN UNIVERSITIES IS OVERWHELMING. UNICOMPASS AI SUITE SIMPLIFIES THE JOURNEY BY PREDICTING YOUR CHANCES, OPTIMIZING YOUR RESUME, AND CRAFTING A COMPELLING STATEMENT OF PURPOSE — ALL IN ONE PLACE.
+                APPLYING TO FOREIGN UNIVERSITIES IS OVERWHELMING. ACADEMIA AI SUITE SIMPLIFIES THE JOURNEY BY PREDICTING YOUR CHANCES, OPTIMIZING YOUR RESUME, AND CRAFTING A COMPELLING STATEMENT OF PURPOSE — ALL IN ONE PLACE.
               </p>
             </div>
 

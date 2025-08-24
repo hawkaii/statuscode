@@ -75,7 +75,7 @@ export function DashboardOverview() {
       features: ["Profile matching", "Admission chances", "Scholarship info", "Location preferences"],
       action: "Find Universities",
       href: "/dashboard/university-recommender",
-      color: "hover:bg-primary hover:text-primary-foreground",
+      color: "hover:bg-accent hover:text-accent-foreground",
       iconBg: "bg-primary"
     },
     {
@@ -95,7 +95,7 @@ export function DashboardOverview() {
       features: ["Deadline tracking", "Status updates", "Document checklist", "Progress monitoring"],
       action: "Track Applications",
       href: "/dashboard/application-tracker",
-      color: "hover:bg-destructive hover:text-destructive-foreground",
+      color: "hover:bg-secondary hover:text-secondary-foreground",
       iconBg: "bg-destructive"
     }
   ];
