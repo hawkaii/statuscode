@@ -1,0 +1,174 @@
+[
+  {
+    "univName": "Carnegie Mellon University",
+    "p_admit": 0.892
+  },
+  {
+    "univName": "University of Washington",
+    "p_admit": 0.876
+  },
+  {
+    "univName": "University of California, San Diego",
+    "p_admit": 0.854
+  },
+  {
+    "univName": "Georgia Institute of Technology",
+    "p_admit": 0.847
+  },
+  {
+    "univName": "University of Texas at Austin",
+    "p_admit": 0.834
+  },
+  {
+    "univName": "University of California, Los Angeles",
+    "p_admit": 0.821
+  },
+  {
+    "univName": "Stanford University",
+    "p_admit": 0.798
+  },
+  {
+    "univName": "Massachusetts Institute of Technology",
+    "p_admit": 0.776
+  },
+  {
+    "univName": "University of California, Berkeley",
+    "p_admit": 0.743
+  },
+  {
+    "univName": "University of Southern California",
+    "p_admit": 0.721
+  },
+  {
+    "univName": "University of Illinois at Urbana-Champaign",
+    "p_admit": 0.698
+  },
+  {
+    "univName": "Cornell University",
+    "p_admit": 0.687
+  },
+  {
+    "univName": "University of Maryland, College Park",
+    "p_admit": 0.654
+  },
+  {
+    "univName": "Columbia University",
+    "p_admit": 0.632
+  },
+  {
+    "univName": "New York University",
+    "p_admit": 0.601
+  },
+  {
+    "univName": "University of Wisconsin-Madison",
+    "p_admit": 0.587
+  },
+  {
+    "univName": "University of Minnesota",
+    "p_admit": 0.564
+  },
+  {
+    "univName": "Pennsylvania State University",
+    "p_admit": 0.543
+  },
+  {
+    "univName": "Virginia Polytechnic Institute and State University",
+    "p_admit": 0.521
+  },
+  {
+    "univName": "Arizona State University",
+    "p_admit": 0.498
+  },
+  {
+    "univName": "Worcester Polytechnic Institute",
+    "p_admit": 0.487
+  },
+  {
+    "univName": "University of California, Irvine",
+    "p_admit": 0.465
+  },
+  {
+    "univName": "Purdue University",
+    "p_admit": 0.442
+  },
+  {
+    "univName": "University of Florida",
+    "p_admit": 0.423
+  },
+  {
+    "univName": "University of Colorado Boulder",
+    "p_admit": 0.401
+  },
+  {
+    "univName": "North Carolina State University",
+    "p_admit": 0.389
+  },
+  {
+    "univName": "Rochester Institute of Technology",
+    "p_admit": 0.376
+  },
+  {
+    "univName": "Syracuse University",
+    "p_admit": 0.354
+  },
+  {
+    "univName": "University at Buffalo",
+    "p_admit": 0.332
+  },
+  {
+    "univName": "University of Cincinnati",
+    "p_admit": 0.298
+  },
+  {
+    "univName": "University of Tennessee",
+    "p_admit": 0.287
+  },
+  {
+    "univName": "Wayne State University",
+    "p_admit": 0.265
+  },
+  {
+    "univName": "University of Toledo",
+    "p_admit": 0.243
+  },
+  {
+    "univName": "Wright State University",
+    "p_admit": 0.221
+  },
+  {
+    "univName": "Western Michigan University",
+    "p_admit": 0.198
+  },
+  {
+    "univName": "Cleveland State University",
+    "p_admit": 0.176
+  },
+  {
+    "univName": "University of South Alabama",
+    "p_admit": 0.154
+  },
+  {
+    "univName": "Alabama Agricultural and Mechanical University",
+    "p_admit": 0.132
+  },
+  {
+    "univName": "University of Alabama in Huntsville",
+    "p_admit": 0.109
+  },
+  {
+    "univName": "Tuskegee University",
+    "p_admit": 0.087
+  },
+  {
+    "univName": "Southern Illinois University Carbondale",
+    "p_admit": 0.065
+  },
+  {
+    "univName": "University of Bridgeport",
+    "p_admit": 0.043
+  },
+  {
+    "univName": "New Jersey Institute of Technology",
+    "p_admit": 0.021
+  }
+]
