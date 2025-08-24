@@ -86,7 +86,7 @@ def _assert_univ_input(univs: Any) -> List[Dict[str, Any]]:
 
 
 def _call_groq(system_prompt: str, user_prompt: str, temperature: float = 0.2) -> str:
-    api_key = "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"
+    api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
         raise RuntimeError("GROQ_API_KEY is not set.")
     client = Groq(api_key=api_key)
