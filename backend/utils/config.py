@@ -24,7 +24,7 @@ class Config:
         self.AZURE_DOC_INTELLIGENCE_ENDPOINT = os.getenv(
             'DOCUMENTINTELLIGENCE_ENDPOINT', 
             'https://hawkaii-resume.cognitiveservices.azure.com/'
-        )
+        ).strip('"\'')  # Remove any surrounding quotes
         
         # Gemini API (for SOP agent)
         self.GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
