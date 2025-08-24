@@ -338,10 +338,25 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == '__main__':
+    # Railway sets PORT environment variable automatically
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('DEBUG', 'false').lower() == 'true'
     
-    logger.info(f"Starting UniCompass Unified Backend on port {port}")
+    # Railway deployment info
+    railway_environment = os.environ.get('RAILWAY_ENVIRONMENT', 'local')
+    
+    logger.info(f"Starting UniCompass Unified Backend")
+    logger.info(f"Port: {port}")
     logger.info(f"Debug mode: {debug}")
+    logger.info(f"Railway environment: {railway_environment}")
+    
+    # Validate configuration on startup
+    try:
+        if not debug:  # Only validate in production
+            config.validate_config()
+            logger.info("Configuration validation passed")
+    except ValueError as e:
+        logger.warning(f"Configuration validation warning: {e}")
+        logger.info("Server will start but some features may be unavailable")
     
     app.run(host='0.0.0.0', port=port, debug=debug)
