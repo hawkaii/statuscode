@@ -1,1 +1,0 @@
-Use context7 for docs
