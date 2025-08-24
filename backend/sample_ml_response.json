@@ -1,0 +1,205 @@
+{
+  "request_id": "550e8400-e29b-41d4-a716-446655440000",
+  "timestamp": "2024-08-24T15:30:45.123456Z",
+  "profile": {
+    "gpa": 2.8,
+    "gre_verbal": 160,
+    "gre_quantitative": 157,
+    "gre_analytical": null,
+    "toefl_score": 120,
+    "ielts_score": null,
+    "research_experience": true,
+    "publications": 10,
+    "work_experience_years": 0.08,
+    "undergraduate_gpa": null,
+    "major": "Computer Science",
+    "target_program": "MS Computer Science"
+  },
+  "predictions": [
+    {
+      "university_name": "Carnegie Mellon University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.892,
+      "tier": "top",
+      "reasoning": "Strong profile match for Carnegie Mellon University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Washington",
+      "program": "MS Computer Science",
+      "admission_probability": 0.876,
+      "tier": "top",
+      "reasoning": "Strong profile match for University of Washington; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of California, San Diego",
+      "program": "MS Computer Science",
+      "admission_probability": 0.854,
+      "tier": "top",
+      "reasoning": "Strong profile match for University of California, San Diego; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Georgia Institute of Technology",
+      "program": "MS Computer Science",
+      "admission_probability": 0.847,
+      "tier": "top",
+      "reasoning": "Strong profile match for Georgia Institute of Technology; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Texas at Austin",
+      "program": "MS Computer Science",
+      "admission_probability": 0.834,
+      "tier": "top",
+      "reasoning": "Strong profile match for University of Texas at Austin; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of California, Los Angeles",
+      "program": "MS Computer Science",
+      "admission_probability": 0.821,
+      "tier": "top",
+      "reasoning": "Strong profile match for University of California, Los Angeles; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Stanford University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.798,
+      "tier": "top",
+      "reasoning": "Strong profile match for Stanford University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Massachusetts Institute of Technology",
+      "program": "MS Computer Science",
+      "admission_probability": 0.776,
+      "tier": "top",
+      "reasoning": "Strong profile match for Massachusetts Institute of Technology; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of California, Berkeley",
+      "program": "MS Computer Science",
+      "admission_probability": 0.743,
+      "tier": "top",
+      "reasoning": "Strong profile match for University of California, Berkeley; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Southern California",
+      "program": "MS Computer Science",
+      "admission_probability": 0.721,
+      "tier": "top",
+      "reasoning": "Strong profile match for University of Southern California; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Illinois at Urbana-Champaign",
+      "program": "MS Computer Science",
+      "admission_probability": 0.698,
+      "tier": "middle",
+      "reasoning": "Competitive profile for University of Illinois at Urbana-Champaign; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Cornell University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.687,
+      "tier": "middle",
+      "reasoning": "Competitive profile for Cornell University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Maryland, College Park",
+      "program": "MS Computer Science",
+      "admission_probability": 0.654,
+      "tier": "middle",
+      "reasoning": "Competitive profile for University of Maryland, College Park; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Columbia University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.632,
+      "tier": "middle",
+      "reasoning": "Competitive profile for Columbia University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "New York University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.601,
+      "tier": "middle",
+      "reasoning": "Competitive profile for New York University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Wisconsin-Madison",
+      "program": "MS Computer Science",
+      "admission_probability": 0.587,
+      "tier": "middle",
+      "reasoning": "Competitive profile for University of Wisconsin-Madison; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "University of Minnesota",
+      "program": "MS Computer Science",
+      "admission_probability": 0.564,
+      "tier": "middle",
+      "reasoning": "Competitive profile for University of Minnesota; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Pennsylvania State University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.543,
+      "tier": "middle",
+      "reasoning": "Competitive profile for Pennsylvania State University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Virginia Polytechnic Institute and State University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.521,
+      "tier": "middle",
+      "reasoning": "Competitive profile for Virginia Polytechnic Institute and State University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    },
+    {
+      "university_name": "Arizona State University",
+      "program": "MS Computer Science",
+      "admission_probability": 0.498,
+      "tier": "safety",
+      "reasoning": "Below-average match for Arizona State University; Acceptable GPA; Excellent GRE scores; Research experience adds value; 10 publications strengthen profile",
+      "requirements_met": {},
+      "recommendations": []
+    }
+  ],
+  "overall_assessment": "Strong profile with excellent admission chances across top universities",
+  "recommendations": [
+    "Consider publishing research work or conference papers"
+  ],
+  "processing_time": 0.234
+}

@@ -1,0 +1,44 @@
+[
+    {
+        "univName": "University of California Davis",
+        "p_admit": 0.7373301922
+    },
+    {
+        "univName": "University of Wisconsin Madison",
+        "p_admit": 0.7286996043
+    },
+    {
+        "univName": "University of California San Diego",
+        "p_admit": 0.7090923986
+    },
+    {
+        "univName": "University of California Santa Barbara",
+        "p_admit": 0.7017949742
+    },
+    {
+        "univName": "University of Illinois Urbana-Champaign",
+        "p_admit": 0.6653025309
+    },
+    {
+        "univName": "University of California Los Angeles",
+        "p_admit": 0.6430226828
+    },
+    {
+        "univName": "Georgia Institute of Technology",
+        "p_admit": 0.6389147855
+    },
+    {
+        "univName": "Massachusetts Institute of Technology",
+        "p_admit": 0.6100314444
+    },
+    {
+        "univName": "University of Texas Austin",
+        "p_admit": 0.5395175486
+    },
+    {
+        "univName": "Stanford University",
+        "p_admit": 0.4929986118
+    }
+]
+
+
