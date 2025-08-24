@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { UserProfileDropdown } from "@/components/user-profile-dropdown"
 import { useAuth } from "@/lib/hooks/use-auth"
+import { useProtectedNavigation } from "@/lib/hooks/use-protected-navigation"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 
@@ -11,6 +12,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { isAuthenticated, loading } = useAuth()
+  const { handleProtectedNavigation } = useProtectedNavigation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +23,10 @@ export function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: "Features", href: "#features" },
-    { name: "How it Works", href: "#how-it-works" },
-    { name: "Roadmap", href: "#roadmap" },
-    { name: "Contact", href: "#contact" },
+    { name: "Features", target: "features" },
+    { name: "How it Works", target: "how-it-works" },
+    { name: "Roadmap", target: "roadmap" },
+    { name: "Contact", target: "contact" },
   ]
 
   return (
@@ -56,13 +58,13 @@ export function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  className="text-foreground hover:text-primary transition-all duration-100 font-bold uppercase text-sm tracking-wide neo-hover px-4 py-2 neo-border bg-accent hover:bg-secondary"
+                  onClick={() => handleProtectedNavigation(link.target)}
+                  className="text-foreground hover:text-primary transition-all duration-100 font-bold uppercase text-sm tracking-wide neo-hover px-4 py-2 neo-border bg-accent hover:bg-secondary cursor-pointer"
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -95,14 +97,16 @@ export function Navbar() {
           <div className="md:hidden">
             <div className="px-2 pt-3 sm:pt-4 pb-4 sm:pb-6 space-y-2 sm:space-y-3 bg-card neo-border neo-shadow-lg mt-3 sm:mt-4 neo-skew mobile-safe-area">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  className="block px-4 sm:px-6 py-3 sm:py-4 text-foreground hover:text-primary transition-all duration-100 font-bold uppercase text-base sm:text-lg neo-border bg-accent hover:bg-secondary neo-hover mobile-touch-target"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    handleProtectedNavigation(link.target)
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className="block w-full text-left px-4 sm:px-6 py-3 sm:py-4 text-foreground hover:text-primary transition-all duration-100 font-bold uppercase text-base sm:text-lg neo-border bg-accent hover:bg-secondary neo-hover mobile-touch-target cursor-pointer"
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
               <div className="px-3 py-3 sm:py-4">
                 {loading ? (

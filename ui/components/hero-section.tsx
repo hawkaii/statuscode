@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles, Zap, Target, Brain } from "lucide-react"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import { GridBackground } from "@/components/ui/grid-background"
+import { useProtectedNavigation } from "@/lib/hooks/use-protected-navigation"
 
 export function HeroSection() {
+  const { handleProtectedNavigation } = useProtectedNavigation()
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16 sm:pt-20">
       {/* Advanced Grid Background - As overlay */}
@@ -97,11 +99,17 @@ export function HeroSection() {
 
             {/* Action buttons - Restored */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 lg:gap-7 justify-center items-center pt-5 sm:pt-7 lg:pt-10">
-              <Button className="w-full sm:w-auto bg-primary text-primary-foreground neo-border neo-shadow-xl neo-hover font-black uppercase text-base sm:text-lg lg:text-xl xl:text-2xl px-5 sm:px-7 lg:px-10 xl:px-14 py-3 sm:py-5 lg:py-7 xl:py-9 tracking-wide">
+              <Button
+                onClick={() => handleProtectedNavigation("features")}
+                className="w-full sm:w-auto bg-primary text-primary-foreground neo-border neo-shadow-xl neo-hover font-black uppercase text-base sm:text-lg lg:text-xl xl:text-2xl px-5 sm:px-7 lg:px-10 xl:px-14 py-3 sm:py-5 lg:py-7 xl:py-9 tracking-wide cursor-pointer"
+              >
                 GET STARTED
                 <ArrowRight className="ml-2 sm:ml-3 lg:ml-5 w-5 h-5 sm:w-7 sm:h-7 lg:w-9 lg:h-9 xl:w-11 xl:h-11" />
               </Button>
-              <Button className="w-full sm:w-auto bg-secondary text-secondary-foreground neo-border neo-shadow-xl neo-hover font-black uppercase text-base sm:text-lg lg:text-xl xl:text-2xl px-5 sm:px-7 lg:px-10 xl:px-14 py-3 sm:py-5 lg:py-7 xl:py-9 tracking-wide">
+              <Button
+                onClick={() => handleProtectedNavigation("features")}
+                className="w-full sm:w-auto bg-secondary text-secondary-foreground neo-border neo-shadow-xl neo-hover font-black uppercase text-base sm:text-lg lg:text-xl xl:text-2xl px-5 sm:px-7 lg:px-10 xl:px-14 py-3 sm:py-5 lg:py-7 xl:py-9 tracking-wide cursor-pointer"
+              >
                 LEARN MORE
                 <Target className="ml-2 sm:ml-3 lg:ml-5 w-5 h-5 sm:w-7 sm:h-7 lg:w-9 lg:h-9 xl:w-11 xl:h-11" />
               </Button>

@@ -1,5 +1,5 @@
 // API utility for backend communication
-const API_BASE_URL = 'https://statuscode-production.up.railway.app'; // Production backend URL
+const API_BASE_URL = 'https://statuscode-production.up.railway.app'; // Railway backend URL
 
 export interface ResumeAnalysisResult {
   ats_score: number;
@@ -9,6 +9,23 @@ export interface ResumeAnalysisResult {
 export interface OCRAnalysisResult {
   extracted_text: string;
   confidence: number;
+}
+
+export interface SOPGenerationRequest {
+  prompt: string;
+  context?: {
+    target_program?: string;
+    university?: string;
+    user_background?: string;
+  };
+}
+
+export interface SOPGenerationResult {
+  generated_sop: string;
+  metadata?: {
+    word_count: number;
+    confidence_score?: number;
+  };
 }
 
 export interface SOPAnalysisResult {
@@ -44,6 +61,25 @@ export interface SOPEnhancementRequest {
     target_program?: string;
     university?: string;
   };
+}
+
+export interface UniversityPredictionRequest {
+  researchExp?: number;
+  industryExp?: number;
+  toeflScore?: number;
+  gmatA?: number;
+  cgpa?: number;
+  gmatQ?: number;
+  cgpaScale?: number;
+  gmatV?: number;
+  gre_total?: number;
+  researchPubs?: number;
+  univName?: string;
+}
+
+export interface UniversityPredictionResult {
+  univName: string;
+  p_admit: number;
 }
 
 export class ResumeAPI {
@@ -93,6 +129,27 @@ export class ResumeAPI {
 }
 
 export class SOPAPI {
+  static async generateSOP(request: SOPGenerationRequest): Promise<SOPGenerationResult> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/sop/generate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(request)
+      });
+
+      if (!response.ok) {
+        throw new Error(`SOP generation failed: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('SOP generation error:', error);
+      throw error;
+    }
+  }
+
   static async analyzeSOP(request: SOPAnalysisRequest): Promise<SOPAnalysisResult> {
     try {
       const response = await fetch(`${API_BASE_URL}/api/sop/analyze`, {
@@ -131,6 +188,29 @@ export class SOPAPI {
       return await response.json();
     } catch (error) {
       console.error('SOP enhancement error:', error);
+      throw error;
+    }
+  }
+}
+
+export class UniversityAPI {
+  static async predictUniversities(request: UniversityPredictionRequest): Promise<UniversityPredictionResult[]> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/predict`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(request)
+      });
+
+      if (!response.ok) {
+        throw new Error(`University prediction failed: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('University prediction error:', error);
       throw error;
     }
   }
