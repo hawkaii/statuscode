@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: unicompass-postgres
+    environment:
+      POSTGRES_DB: unicompass_db
+      POSTGRES_USER: unicompass_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password_123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sop_agent/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - unicompass-network
+
+  # Prediction Agent
+  prediction-agent:
+    build: ./prediction_agent
+    container_name: unicompass-prediction
+    environment:
+      - PORT=5002
+      - HOST=0.0.0.0
+      - DEBUG=false
+      - CACHE_SIZE=256
+    ports:
+      - "5002:5002"
+    restart: unless-stopped
+    networks:
+      - unicompass-network
+    depends_on:
+      - postgres
+
+  # Resume Agent
+  resume-agent:
+    build: ./resume_agent
+    container_name: unicompass-resume
+    environment:
+      - DEBUG=false
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DOCUMENTINTELLIGENCE_ENDPOINT=${DOCUMENTINTELLIGENCE_ENDPOINT:-}
+      - DOCUMENTINTELLIGENCE_API_KEY=${DOCUMENTINTELLIGENCE_API_KEY:-}
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+    networks:
+      - unicompass-network
+
+  # SOP Agent
+  sop-agent:
+    build: ./sop_agent
+    container_name: unicompass-sop
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=unicompass_db
+      - POSTGRES_USER=unicompass_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-secure_password_123}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_key_here}
+      - EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+    ports:
+      - "5003:5003"
+    restart: unless-stopped
+    networks:
+      - unicompass-network
+    depends_on:
+      - postgres
+
+  # Orchestrator (API Gateway)
+  orchestrator:
+    build: ./orchestrator
+    container_name: unicompass-orchestrator
+    environment:
+      - PREDICTION_AGENT_URL=http://prediction-agent:5002/predict_universities
+      - RESUME_AGENT_URL=http://resume-agent:5001/analyze_resume
+      - SOP_AGENT_URL=http://sop-agent:5003
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - unicompass-network
+    depends_on:
+      - prediction-agent
+      - resume-agent
+      - sop-agent
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: unicompass-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl-certs:/etc/nginx/ssl:ro
+    restart: unless-stopped
+    networks:
+      - unicompass-network
+    depends_on:
+      - orchestrator
+
+volumes:
+  postgres_data:
+
+networks:
+  unicompass-network:
+    driver: bridge

@@ -1,0 +1,156 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: unicompass-db
+    environment:
+      - POSTGRES_DB=unicompass
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-unicompass2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sop_agent/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # SOP Agent (includes database and embeddings)
+  sop-agent:
+    build: 
+      context: ./sop_agent
+      dockerfile: Dockerfile
+    container_name: unicompass-sop
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-unicompass2024}@postgres:5432/unicompass
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key}
+      - EMBEDDINGS_MODEL=all-MiniLM-L6-v2
+      - FLASK_ENV=production
+    ports:
+      - "5003:5003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Resume Agent
+  resume-agent:
+    build: 
+      context: ./resume_agent
+      dockerfile: Dockerfile
+    container_name: unicompass-resume
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DOCUMENTINTELLIGENCE_ENDPOINT=${DOCUMENTINTELLIGENCE_ENDPOINT}
+      - DOCUMENTINTELLIGENCE_API_KEY=${DOCUMENTINTELLIGENCE_API_KEY}
+      - DEBUG=false
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Prediction Agent
+  prediction-agent:
+    build: 
+      context: ./prediction_agent
+      dockerfile: Dockerfile
+    container_name: unicompass-prediction
+    environment:
+      - PORT=5002
+      - HOST=0.0.0.0
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+      - CACHE_SIZE=128
+    ports:
+      - "5002:5002"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Orchestrator (API Gateway)
+  orchestrator:
+    build: 
+      context: ./orchestrator
+      dockerfile: Dockerfile
+    container_name: unicompass-orchestrator
+    environment:
+      - PREDICTION_AGENT_URL=http://prediction-agent:5002/predict_universities
+      - RESUME_AGENT_URL=http://resume-agent:5001/analyze_resume
+      - SOP_AGENT_URL=http://sop-agent:5003
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-unicompass2024}@postgres:5432/unicompass
+      - FLASK_ENV=production
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - sop-agent
+      - resume-agent
+      - prediction-agent
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend (Next.js)
+  frontend:
+    build: 
+      context: ./sop_agent/frontend
+      dockerfile: Dockerfile
+    container_name: unicompass-frontend
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://${VULTR_SERVER_IP}:5000
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - orchestrator
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: unicompass-nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+      - orchestrator
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  default:
+    name: unicompass-network

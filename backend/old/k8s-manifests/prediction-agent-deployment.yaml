@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prediction-agent
+  labels:
+    app: prediction-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prediction-agent
+  template:
+    metadata:
+      labels:
+        app: prediction-agent
+    spec:
+      containers:
+      - name: prediction-agent
+        image: unicompass/prediction-agent:latest
+        ports:
+        - containerPort: 5002
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5002
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5002
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prediction-agent-service
+spec:
+  selector:
+    app: prediction-agent
+  ports:
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002
+  type: LoadBalancer

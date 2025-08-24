@@ -1,0 +1,254 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prediction-agent
+  namespace: unicompass-backend
+  labels:
+    app: prediction-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prediction-agent
+  template:
+    metadata:
+      labels:
+        app: prediction-agent
+    spec:
+      containers:
+      - name: prediction-agent
+        image: unicompass/prediction-agent:latest
+        ports:
+        - containerPort: 5002
+        env:
+        - name: PORT
+          value: "5002"
+        - name: HOST
+          value: "0.0.0.0"
+        - name: DEBUG
+          value: "false"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5002
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5002
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prediction-agent-service
+  namespace: unicompass-backend
+spec:
+  selector:
+    app: prediction-agent
+  ports:
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resume-agent
+  namespace: unicompass-backend
+  labels:
+    app: resume-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resume-agent
+  template:
+    metadata:
+      labels:
+        app: resume-agent
+    spec:
+      containers:
+      - name: resume-agent
+        image: unicompass/resume-agent:latest
+        ports:
+        - containerPort: 5001
+        envFrom:
+        - secretRef:
+            name: api-secrets
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5001
+          initialDelaySeconds: 15
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5001
+          initialDelaySeconds: 45
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "400m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: resume-agent-service
+  namespace: unicompass-backend
+spec:
+  selector:
+    app: resume-agent
+  ports:
+  - protocol: TCP
+    port: 5001
+    targetPort: 5001
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sop-agent
+  namespace: unicompass-backend
+  labels:
+    app: sop-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sop-agent
+  template:
+    metadata:
+      labels:
+        app: sop-agent
+    spec:
+      containers:
+      - name: sop-agent
+        image: unicompass/sop-agent:latest
+        ports:
+        - containerPort: 5003
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://postgres:unicompass2024@postgres-service:5432/unicompass"
+        - name: FLASK_ENV
+          value: "production"
+        - name: EMBEDDINGS_MODEL
+          value: "all-MiniLM-L6-v2"
+        envFrom:
+        - secretRef:
+            name: api-secrets
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5003
+          initialDelaySeconds: 20
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5003
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        dependsOn:
+        - postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sop-agent-service
+  namespace: unicompass-backend
+spec:
+  selector:
+    app: sop-agent
+  ports:
+  - protocol: TCP
+    port: 5003
+    targetPort: 5003
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator
+  namespace: unicompass-backend
+  labels:
+    app: orchestrator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orchestrator
+  template:
+    metadata:
+      labels:
+        app: orchestrator
+    spec:
+      containers:
+      - name: orchestrator
+        image: unicompass/orchestrator:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PREDICTION_AGENT_URL
+          value: "http://prediction-agent-service:5002/predict_universities"
+        - name: RESUME_AGENT_URL
+          value: "http://resume-agent-service:5001/analyze_resume"
+        - name: SOP_AGENT_URL
+          value: "http://sop-agent-service:5003"
+        - name: FLASK_ENV
+          value: "production"
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 45
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "400m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestrator-service
+  namespace: unicompass-backend
+spec:
+  selector:
+    app: orchestrator
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+  type: LoadBalancer
