@@ -8,6 +8,7 @@ import numpy as np
 
 from models.data_models import *
 from utils.config import Config
+from services.ml_prediction_service import MLPredictionService
 
 logger = logging.getLogger('unicompass.prediction_service')
 
@@ -20,9 +21,14 @@ class PredictionService:
         self.cache_size = config.CACHE_SIZE
         self.request_count = 0
         
-        # Initialize mock ML model (in real implementation, this would load trained models)
-        self.university_data = self._load_university_data()
-        logger.info("Prediction service initialized with university database")
+        # Initialize ML prediction service
+        try:
+            self.ml_service = MLPredictionService()
+            logger.info("Prediction service initialized with ML model")
+        except Exception as e:
+            logger.error(f"Failed to initialize ML service: {str(e)}")
+            self.ml_service = None
+            logger.warning("Falling back to mock prediction service")
     
     def predict_universities(self, profile_data: Dict[str, Any]) -> Dict[str, Any]:
         """Predict university admission probabilities based on academic profile"""
@@ -45,12 +51,12 @@ class PredictionService:
                 cached_result["timestamp"] = datetime.utcnow().isoformat()
                 return cached_result
             
-            # Generate predictions
-            predictions = []
-            
-            for university in self.university_data:
-                prediction = self._predict_single_university(profile, university)
-                predictions.append(prediction)
+            # Generate predictions using ML model or fallback to mock
+            if self.ml_service and self.ml_service.is_model_loaded():
+                predictions = self.ml_service.predict_universities(profile)
+            else:
+                logger.warning("Using mock predictions - ML model not available")
+                predictions = self._generate_mock_predictions(profile)
             
             # Sort by admission probability
             predictions.sort(key=lambda x: x.admission_probability, reverse=True)
@@ -266,6 +272,17 @@ class PredictionService:
         
         return recommendations
     
+    def _generate_mock_predictions(self, profile: AcademicProfile) -> List[UniversityPrediction]:
+        """Generate mock predictions when ML model is not available"""
+        university_data = self._load_university_data()
+        predictions = []
+        
+        for university in university_data:
+            prediction = self._predict_single_university(profile, university)
+            predictions.append(prediction)
+        
+        return predictions
+    
     def _load_university_data(self) -> List[Dict[str, Any]]:
         """Load university database (mock data for demonstration)"""
         return [
@@ -344,16 +361,19 @@ class PredictionService:
     
     def get_health(self) -> Dict[str, Any]:
         """Get service health status"""
+        ml_status = "active" if self.ml_service and self.ml_service.is_model_loaded() else "unavailable"
+        university_count = len(self.ml_service.get_supported_universities()) if self.ml_service and self.ml_service.is_model_loaded() else len(self._load_university_data())
+        
         return {
             "status": "healthy",
             "timestamp": datetime.utcnow().isoformat(),
             "service": "prediction_service",
             "dependencies": {
-                "university_database": "loaded",
-                "ml_models": "mock_active"
+                "ml_model": ml_status,
+                "university_database": "loaded"
             },
             "stats": {
-                "universities_loaded": len(self.university_data),
+                "universities_loaded": university_count,
                 "cache_size": len(self.cache),
                 "total_requests": self.request_count
             }

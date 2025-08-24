@@ -120,6 +120,12 @@ class SOPAnalysis(BaseModel):
     strengths: List[str] = Field(default_factory=list)
     weaknesses: List[str] = Field(default_factory=list)
     suggestions: List[str] = Field(default_factory=list)
+    overall_score: Optional[int] = None
+    academic_focus_score: Optional[int] = None
+    personal_narrative_score: Optional[int] = None
+    research_alignment_score: Optional[int] = None
+    career_clarity_score: Optional[int] = None
+    writing_quality_score: Optional[int] = None
 
 class SOPEnhancement(BaseModel):
     original_text: str
