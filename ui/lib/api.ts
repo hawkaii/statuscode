@@ -1,5 +1,5 @@
 // API utility for backend communication
-const API_BASE_URL = 'https://statuscode-production.up.railway.app'; // Railway backend URL
+const API_BASE_URL = 'http://139.84.170.181'; // Vultr backend URL
 
 export interface ResumeAnalysisResult {
   ats_score: number;
