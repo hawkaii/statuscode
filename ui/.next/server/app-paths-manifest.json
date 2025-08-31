@@ -1,7 +1,0 @@
-{
-  "/dashboard/application-tracker/page": "app/dashboard/application-tracker/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/resume-analyzer/page": "app/dashboard/resume-analyzer/page.js",
-  "/page": "app/page.js",
-  "/dashboard/sop-optimizer/page": "app/dashboard/sop-optimizer/page.js"
-}

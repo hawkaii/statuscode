@@ -1,0 +1,59 @@
+# This first server block handles the secure HTTPS traffic on port 443.
+server {
+    # Listen on port 443 for SSL/TLS connections.
+    listen 443 ssl;
+    server_name academia.hawkaii.me www.academia.hawkaii.me;
+
+    # Set maximum allowed size of the client request body.
+    client_max_body_size 20M;
+
+    # SSL Certificate settings managed by Certbot.
+    ssl_certificate /etc/letsencrypt/live/academia.hawkaii.me/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/academia.hawkaii.me/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Location block for the frontend application.
+    # All requests that are not for '/api/' or '/health' will be handled here.
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Location block for the backend API.
+    # All requests starting with '/api/' are forwarded to the backend server.
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Increased timeouts for potentially long-running ML operations.
+        proxy_connect_timeout 300s;
+        proxy_send_timeout 300s;
+        proxy_read_timeout 300s;
+    }
+
+    # Health check endpoint, forwarded to the backend.
+    location /health {
+        proxy_pass http://127.0.0.1:5000/health;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# This second server block handles insecure HTTP traffic on port 80.
+# Its only purpose is to redirect all traffic to the secure HTTPS site.
+server {
+    listen 80;
+    server_name academia.hawkaii.me www.academia.hawkaii.me;
+
+    # Permanently redirect (301) all HTTP requests to the HTTPS version.
+    return 301 https://$host$request_uri;
+}
